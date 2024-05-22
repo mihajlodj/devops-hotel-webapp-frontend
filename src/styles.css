@@ -1,1 +1,15 @@
-/* You can add global styles to this file, and also import other style files */
+@import 'bootstrap-icons/font/bootstrap-icons.css';
+
+:root {
+  --devops-red: #a40000;
+  --devops-green: #009d02;
+}
+
+.error-text {
+  color: var(--devops-red);
+  min-height: 24px;
+}
+
+.success-text {
+  color: var(--devops-green);
+}
