@@ -1,0 +1,14 @@
+#login-main {
+  margin-top: 60px;
+}
+
+.login-button {
+  display: block;
+  margin: 0 auto;
+}
+
+.register-link {
+  display: block;
+  margin: 0 auto;
+  padding-top: 20px;
+}
