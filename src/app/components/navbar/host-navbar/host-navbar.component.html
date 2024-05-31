@@ -1,0 +1,41 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#"><b>FTN DEVOPS</b></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" [href]="'/profile/' + this.username()">Profile</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [href]="'/myLodgings/' + this.username()">My lodgings</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Dropdown
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+          </li>
+        </ul>
+        <form class="d-flex">
+          <input type="date" class="form-control" style="border-top-right-radius:0;border-bottom-right-radius:0;">
+          <span class="input-group-text" style="border-radius:0!important;" id="basic-addon1">to</span>
+          <input type="date" class="form-control me-2" style="border-top-left-radius:0;border-bottom-left-radius:0;">
+          <input class="form-control me-2" type="number" placeholder="Number of guests" aria-label="Guests">
+          <input class="form-control me-2" type="text" placeholder="Location" aria-label="Location">
+          <button class="btn btn-success" type="submit">Search</button>
+        </form>
+        <button class="ms-2 btn btn-danger" type="submit" (click)="logout()">Logout</button>
+      </div>
+    </div>
+  </nav>
