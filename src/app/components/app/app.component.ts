@@ -27,10 +27,6 @@ export class AppComponent implements OnInit {
     this.checkRoles();
   }
 
-  logout(){
-    this.currentUserService.logout();
-  }
-
   checkRoles(){
     this.isGuest = this.currentUserService.checkUserRole(UserRole.GUEST);
     this.isHost = this.currentUserService.checkUserRole(UserRole.HOST)
