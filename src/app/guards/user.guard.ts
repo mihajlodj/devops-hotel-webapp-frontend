@@ -4,11 +4,9 @@ import {inject} from "@angular/core";
 import jwtDecode from "jwt-decode";
 import {JwtPayload} from "../model/login/jwt-payload";
 
-export const loginRoleGuard: CanActivateFn = (route, state) => {
+export const userGuard: CanActivateFn = (route, state) => {
   const currentUserService: CurrentUserService = inject(CurrentUserService);
   const router: Router = inject(Router);
-
-  const requiredRoles = route.data['roles'] as string;
 
   let token = currentUserService.getToken();
   if (!token) {
@@ -23,8 +21,10 @@ export const loginRoleGuard: CanActivateFn = (route, state) => {
     router.navigate(['/login']);
     return false;
   }
+  let loggedInUsername = decoded.sub;
+  let requiredUsername = route.paramMap.get('username');
 
-  if (requiredRoles && !requiredRoles.includes(decoded.role)) {
+  if (loggedInUsername != requiredUsername) {
     router.navigate(['/page404']);
     return false;
   }

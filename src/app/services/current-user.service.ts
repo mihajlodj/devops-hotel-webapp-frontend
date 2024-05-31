@@ -74,7 +74,7 @@ export class CurrentUserService {
   logout(){
     sessionStorage.removeItem("jwt");
     this.setLoggedInBehavior(false);
-    this.router.navigate(['/login']);
+    this.router.navigate(['/']);
   }
 
 }

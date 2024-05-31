@@ -10,6 +10,15 @@ import {HomeComponent} from "./components/home/home.component";
 import {LoadingComponent} from "./components/utils/loading/loading.component";
 import {LoginComponent} from "./components/auth/login/login.component";
 import {RegisterComponent} from "./components/auth/register/register.component";
+import { UnloggedNavbarComponent } from './components/navbar/unlogged-navbar/unlogged-navbar.component';
+import { GuestNavbarComponent } from './components/navbar/guest-navbar/guest-navbar.component';
+import { HostNavbarComponent } from './components/navbar/host-navbar/host-navbar.component';
+import { LodgingComponent } from './components/lodging/lodging.component';
+import { LodgingListComponent } from './components/lodging/lodging-list/lodging-list.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { Page404Component } from './components/page404/page404.component';
+import { ReservationComponent } from './components/reservation/reservation.component';
+import { ReservationListComponent } from './components/reservation/reservation-list/reservation-list.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +26,16 @@ import {RegisterComponent} from "./components/auth/register/register.component";
     HomeComponent,
     LoadingComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    UnloggedNavbarComponent,
+    GuestNavbarComponent,
+    HostNavbarComponent,
+    LodgingComponent,
+    LodgingListComponent,
+    ProfileComponent,
+    Page404Component,
+    ReservationComponent,
+    ReservationListComponent
   ],
   imports: [
     BrowserModule,
