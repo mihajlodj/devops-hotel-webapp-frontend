@@ -45,6 +45,11 @@
                     <button class="ms-3 btn btn-warning profile-button" style="color:white;" type="button" (click)="changePassword()">Change password</button>
                     <button class="ms-3 btn btn-danger profile-button" type="button" (click)="deleteProfile()">Delete Profile</button>
                 </div>
+                <hr>
+                <div class="mt-5 d-grid gap-2 text-center btn-group" *ngIf="usernameFromService() === pathUsername()">
+                    <input type="checkbox" class="btn-check btn-lg btn-block" id="btncheck1" autocomplete="off" (click)="switchNotifications()" [checked]="notificationsAllowed == 'Notifications are enabled'">
+                    <label class="btn btn-outline-primary" for="btncheck1"  >{{ notificationsAllowed }}</label>
+                </div>
             </div>
         </div>
     </div>
