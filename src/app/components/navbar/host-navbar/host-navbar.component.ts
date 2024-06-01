@@ -14,7 +14,7 @@ export class HostNavbarComponent {
   logout(){
     this.currentUserService.logout();
   }
-  username() {
-    this.currentUserService.getUsername()
+  get username() {
+    return this.currentUserService.getUsername()
   }
 }

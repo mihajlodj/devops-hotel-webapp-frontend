@@ -16,7 +16,7 @@ export class GuestNavbarComponent {
     this.currentUserService.logout();
   }
   
-  username() {
-    this.currentUserService.getUsername()
+  get username() {
+    return this.currentUserService.getUsername()
   }
 }
