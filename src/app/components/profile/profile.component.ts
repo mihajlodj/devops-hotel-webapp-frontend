@@ -22,7 +22,6 @@ export class ProfileComponent {
   ngOnInit(): void {
     this.currentUserService.me().subscribe((user) => {
       this.userProfile = user;
-      console.log(user);
     });
 
   }
@@ -32,6 +31,12 @@ export class ProfileComponent {
   }
   pathUsername() {
     return this.route.snapshot.paramMap.get('username')
+  }
+  get notificationsAllowed(): string {
+    if (this.userProfile) {
+      return this.userProfile.notificationsAllowed ? 'Notifications are enabled' : 'Notifications are disabled';
+    }
+    return 'Error: user not present';
   }
 
   get firstName(): string {
@@ -68,11 +73,11 @@ export class ProfileComponent {
   }
 
   updateProfile() {
-    if (confirm('Warning: this action will log you out!')){
+    if (confirm('Warning: this action will log you out!')) {
       if (this.userProfile) {
         this.currentUserService.updateMe(this.userProfile).subscribe({
           complete: () => {
-    
+
           },
           error: (error) => {
             alert(error.message);
@@ -84,14 +89,14 @@ export class ProfileComponent {
         });
       }
     }
-    
-  }      
+
+  }
   deleteProfile() {
     if (confirm('Warning: this action will log you out and you won\'t be able to access your account again!')) {
       if (this.userProfile) {
         this.currentUserService.deleteMe().subscribe({
           complete: () => {
-    
+
           },
           error: (error) => {
             alert(error.message);
@@ -103,13 +108,13 @@ export class ProfileComponent {
         });
       }
     }
-    
+
   }
   changePassword() {
     if (confirm('Warning: this action will log you out!')) {
       if (this.userProfile) {
         this.currentUserService.changeMyPassword(this.oldPassword, this.newPassword, this.repeatNewPassword).subscribe({
-          complete: () => {},
+          complete: () => { },
           error: (error) => {
             alert(error.message);
           },
@@ -120,6 +125,19 @@ export class ProfileComponent {
         });
       }
     }
-    
   }
+  switchNotifications() {
+    this.currentUserService.toggleMyNotifications().subscribe({
+      error: (err) => {
+        alert(err.message);
+      },
+      next: () => {
+        if (this.userProfile) {
+          this.userProfile.notificationsAllowed = !this.userProfile.notificationsAllowed;
+        }
+      }
+    })
+
+  }
+
 }

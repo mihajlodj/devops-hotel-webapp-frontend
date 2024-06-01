@@ -127,5 +127,14 @@ export class CurrentUserService {
           return throwError(() => new Error(message));
     }))
   }
+  toggleMyNotifications() {
+    return this.httpClient.put(this.apiUrl + '/update-notifications', {}).pipe(catchError(err => {
+      let message = ExceptionMessages.PASSWORD_CHANGE_ERROR;
+          if(err.error){
+            message = err.error.message;
+          }
+          return throwError(() => new Error(message));
+    }))
+  }
 
 }
