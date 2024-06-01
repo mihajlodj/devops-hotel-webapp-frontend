@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {FormsModule} from "@angular/forms";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {NgxSpinnerModule} from "ngx-spinner";
@@ -19,6 +19,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { Page404Component } from './components/page404/page404.component';
 import { ReservationComponent } from './components/reservation/reservation.component';
 import { ReservationListComponent } from './components/reservation/reservation-list/reservation-list.component';
+import { JwtInterceptor } from './interceptor';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,9 @@ import { ReservationListComponent } from './components/reservation/reservation-l
     FormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
