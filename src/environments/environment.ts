@@ -1,4 +1,6 @@
 export const environment = {
-  userService: "",
-  apiUrl: ''
+  userService: '',
+  apiUrl: '',
+  userApiUrl: '',
+  lodgeApiUrl: ''
 };
