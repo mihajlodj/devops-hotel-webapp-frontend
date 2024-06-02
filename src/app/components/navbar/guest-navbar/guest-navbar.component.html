@@ -7,10 +7,10 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" [href]="'/profile/' + username">Profile</a>
+            <a [ngClass]="{'nav-link': true, 'active': this.profileActive}" aria-current="page" [href]="'/profile/' + username">Profile</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" href="/myReservations">My reservations</a>
+            <a [ngClass]="{'nav-link': true, 'active': this.myReservationsActive}" href="/myReservations">My reservations</a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">

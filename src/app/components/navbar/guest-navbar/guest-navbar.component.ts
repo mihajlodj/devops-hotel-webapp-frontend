@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {Location} from '@angular/common';
 import { CurrentUserService } from 'src/app/services/current-user.service';
 
 @Component({
@@ -8,10 +9,28 @@ import { CurrentUserService } from 'src/app/services/current-user.service';
 })
 export class GuestNavbarComponent {
 
+  profileActive: boolean = false;
+  myReservationsActive: boolean = false;
 
-  constructor(private currentUserService: CurrentUserService) {
+  constructor(private currentUserService: CurrentUserService, private location: Location) {
 
   }
+  ngOnInit() {
+    switch (this.location.path()) {
+      case '/profile/'+this.username: {
+        this.profileActive = true;
+        break;
+      }
+      case '/myLodgings': {
+        this.myReservationsActive = true;
+        break;
+      }
+      default: {
+        break;
+      }
+    }
+  }
+
   logout(){
     this.currentUserService.logout();
   }
