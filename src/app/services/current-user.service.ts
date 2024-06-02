@@ -14,7 +14,7 @@ import { environment } from 'src/environments/environment';
 export class CurrentUserService {
 
 
-  private apiUrl: string = environment.apiUrl + '/users';
+  private apiUrl: string = environment.userApiUrl;
 
   private loggedInBehavior = new BehaviorSubject(this.getLoginStatus());
   isLoggedIn = this.loggedInBehavior.asObservable();

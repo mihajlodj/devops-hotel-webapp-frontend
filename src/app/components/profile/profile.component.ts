@@ -13,9 +13,7 @@ export class ProfileComponent {
   oldPassword: string = '';
   newPassword: string = '';
   repeatNewPassword: string = '';
-  constructor(private route: ActivatedRoute, private currentUserService: CurrentUserService,
-    private router: Router
-  ) {
+  constructor(private route: ActivatedRoute, private currentUserService: CurrentUserService) {
 
   }
 
