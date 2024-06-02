@@ -4,10 +4,11 @@ import {HomeComponent} from "./components/home/home.component";
 import {LoginComponent} from "./components/auth/login/login.component";
 import {RegisterComponent} from "./components/auth/register/register.component";
 import {loginRoleGuard} from "./guards/login-role.guard";
-import { LodgingListComponent } from './components/lodging/lodging-list/lodging-list.component';
+import { LodgingListComponent } from './components/lodging/list/lodging-list.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { Page404Component } from './components/page404/page404.component';
 import { userGuard } from './guards/user.guard';
+import { NewLodgingComponent } from './components/lodging/new/new-lodging.component';
 
 const routes: Routes = [
   {
@@ -31,14 +32,20 @@ const routes: Routes = [
     canActivate: [loginRoleGuard]
   },
   {
-    path: 'myReservations/:username',
+    path: 'myReservations',
     component: ProfileComponent,
     canActivate: [userGuard]
   },
   {
-    path: 'myLodgings/:username',
+    path: 'myLodgings',
     component: ProfileComponent,
     canActivate: [userGuard]
+  },
+  {
+    path: 'newLodging',
+    component: NewLodgingComponent,
+    data: { roles: ['HOST'] },
+    canActivate: [loginRoleGuard]
   },
   {
     path: '**',

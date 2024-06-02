@@ -7,4 +7,18 @@ import { Component } from '@angular/core';
 })
 export class UnloggedNavbarComponent {
 
+  loginActive: boolean = false;
+  registerActive: boolean = false;
+
+  constructor() {
+
+  }
+  loginClicked() {
+    this.loginActive = true;
+    this.registerActive = false;
+  }
+  registerClicked() {
+    this.registerActive = true;
+    this.loginActive = false;
+  }
 }
