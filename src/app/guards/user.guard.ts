@@ -10,14 +10,12 @@ export const userGuard: CanActivateFn = (route, state) => {
 
   let token = currentUserService.getToken();
   if (!token) {
-    console.log("NEMA TOKENA")
     router.navigate(['/login']);
     return false;
   }
 
   let decoded = jwtDecode(token);
   if (!isJwt(decoded)) {
-    console.log("HUAAA")
     router.navigate(['/login']);
     return false;
   }

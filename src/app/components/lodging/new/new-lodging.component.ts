@@ -96,8 +96,6 @@ export class NewLodgingComponent {
       alert('Lowest number of guests can\'t be higher than highest');
       return;
     }
-    let ameni = this.amenities.split(';');
-    console.log(ameni);
     let newLodge = {
       name: this.name,
       location: this.location,
