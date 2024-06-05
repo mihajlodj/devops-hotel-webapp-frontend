@@ -9,6 +9,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { Page404Component } from './components/page404/page404.component';
 import { userGuard } from './guards/user.guard';
 import { NewLodgingComponent } from './components/lodging/new/new-lodging.component';
+import { LodgingComponent } from './components/lodging/details/lodging.component';
 
 const routes: Routes = [
   {
@@ -37,13 +38,18 @@ const routes: Routes = [
     canActivate: [userGuard]
   },
   {
-    path: 'myLodgings',
-    component: ProfileComponent,
-    canActivate: [userGuard]
-  },
-  {
     path: 'newLodging',
     component: NewLodgingComponent,
+    data: { roles: ['HOST'] },
+    canActivate: [loginRoleGuard]
+  },
+  {
+    path: 'lodge/:lodgeId',
+    component: LodgingComponent,
+  },
+  {
+    path: 'myLodgings',
+    component: LodgingListComponent,
     data: { roles: ['HOST'] },
     canActivate: [loginRoleGuard]
   },

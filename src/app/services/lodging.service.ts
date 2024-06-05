@@ -28,8 +28,20 @@ export class LodgingService {
       return throwError(() => new Error(message));
     }));
   }
-  get(id: number): Observable<Lodge> {
-    return this.httpClient.get<Lodge>(this.apiUrl + '/get/' + id, {
+
+  getAll(): Observable<Lodge[]> {
+    return this.httpClient.get<Lodge[]>(this.apiUrl + '/all', {
+    }).pipe(catchError(err => {
+      let message = 'Error: Getting lodges failed';
+        if(err.error){
+          message = err.error.message;
+        }
+        return throwError(() => new Error(message));
+    }));
+  }
+
+  get(id: string): Observable<Lodge> {
+    return this.httpClient.get<Lodge>(this.apiUrl + '/' + id, {
     }).pipe(catchError(err => {
       let message = 'Error: Getting lodge failed';
         if(err.error){
@@ -38,6 +50,18 @@ export class LodgingService {
         return throwError(() => new Error(message));
     }));
   }
+
+  getMineAll(): Observable<Lodge[]> {
+    return this.httpClient.get<Lodge[]>(this.apiUrl + '/mine/all', {
+    }).pipe(catchError(err => {
+      let message = 'Error: Getting lodges failed';
+        if(err.error){
+          message = err.error.message;
+        }
+        return throwError(() => new Error(message));
+    }));
+  }
+
   delete(id: number): Observable<Lodge> {
     return this.httpClient.delete<Lodge>(this.apiUrl + '/delete/' + id, {
     }).pipe(catchError(err => {
