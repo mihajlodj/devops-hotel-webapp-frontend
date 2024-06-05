@@ -1,3 +1,4 @@
+import { Photo } from "../photo/photo";
 import { RequestForReservationApprovalType } from "./request-for-approval";
 
 export class Lodge {
@@ -7,5 +8,6 @@ export class Lodge {
     amenities: string[] = [];
     minimalGuestNumber: number = 1;
     maximalGuestNumber: number = 1;
+    photos: Photo[] = [];
     approvalType: RequestForReservationApprovalType = RequestForReservationApprovalType.AUTOMATIC;
 }
