@@ -2,7 +2,8 @@ import { Photo } from "../photo/photo";
 import { RequestForReservationApprovalType } from "./request-for-approval";
 
 export class Lodge {
-    id: number = 0;
+    id: string = '';
+    ownerId: string = '';
     name: string = '';
     location: string = '';
     amenities: string[] = [];

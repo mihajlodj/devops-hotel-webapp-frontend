@@ -21,6 +21,7 @@ import { ReservationComponent } from './components/reservation/reservation.compo
 import { ReservationListComponent } from './components/reservation/reservation-list/reservation-list.component';
 import { JwtInterceptor } from './interceptor';
 import { NewLodgingComponent } from './components/lodging/new/new-lodging.component';
+import { SearchComponent } from './search/search.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { NewLodgingComponent } from './components/lodging/new/new-lodging.compon
     Page404Component,
     ReservationComponent,
     ReservationListComponent,
-    NewLodgingComponent
+    NewLodgingComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,

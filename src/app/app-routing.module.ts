@@ -54,6 +54,10 @@ const routes: Routes = [
     canActivate: [loginRoleGuard]
   },
   {
+    path: 'search',
+    component: LodgingListComponent
+  },
+  {
     path: '**',
     component: Page404Component
   }

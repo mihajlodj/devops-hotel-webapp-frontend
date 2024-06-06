@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Lodge } from 'src/app/model/lodge/lodge';
 import { LodgingService } from 'src/app/services/lodging.service';
+import { SearchService } from 'src/app/services/search.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -12,7 +13,7 @@ import { environment } from 'src/environments/environment';
 export class LodgingListComponent {
   photoUrlPrefix: string = environment.lodgePhotoUrl;
   lodges: Lodge[] = []
-  constructor(private lodgingService: LodgingService, public router: Router) {
+  constructor(private lodgingService: LodgingService, public router: Router, private searchService: SearchService) {
 
   }
 
@@ -24,18 +25,15 @@ export class LodgingListComponent {
       },
       next: (responseLodges: Lodge[]) => {
         this.lodges = responseLodges;
-        console.log(this.lodges);
       }
     };
     if (url === '/' ) {
       this.lodgingService.getAll().subscribe(setLodges);
     } else if (url === '/myLodgings') {
       this.lodgingService.getMineAll().subscribe(setLodges);
+    } else if (url.startsWith('/search')) {
+      this.searchService.get(url).subscribe(setLodges);
     }
-  }
-
-  randomSeed() {
-    return Math.random() * 1000;
   }
 
 }

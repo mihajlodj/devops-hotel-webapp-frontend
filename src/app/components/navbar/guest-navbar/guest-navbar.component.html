@@ -27,15 +27,7 @@
             <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
           </li>
         </ul>
-        <form class="d-flex">
-          
-          <input type="date" class="form-control" style="border-top-right-radius:0;border-bottom-right-radius:0;">
-          <span class="input-group-text" style="border-radius:0!important;" id="basic-addon1">to</span>
-          <input type="date" class="form-control me-2" style="border-top-left-radius:0;border-bottom-left-radius:0;">
-          <input class="form-control me-2" type="number" placeholder="Number of guests" aria-label="Guests">
-          <input class="form-control me-2" type="text" placeholder="Location" aria-label="Location">
-          <button class="btn btn-success" type="submit">Search</button>
-        </form>
+        <app-search></app-search>
         <button class="ms-2 btn btn-danger" type="submit" (click)="logout()">Logout</button>
       </div>
     </div>
