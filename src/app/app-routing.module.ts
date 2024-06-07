@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {HomeComponent} from "./components/home/home.component";
 import {LoginComponent} from "./components/auth/login/login.component";
 import {RegisterComponent} from "./components/auth/register/register.component";
 import {loginRoleGuard} from "./guards/login-role.guard";
@@ -9,7 +8,8 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { Page404Component } from './components/page404/page404.component';
 import { userGuard } from './guards/user.guard';
 import { NewLodgingComponent } from './components/lodging/new/new-lodging.component';
-import { LodgingComponent } from './components/lodging/details/lodging.component';
+import { LodgingDetailComponent } from './components/lodging/detail/lodging.detail.component';
+import { LodgingEditComponent } from './components/lodging/edit/lodging.edit.component';
 
 const routes: Routes = [
   {
@@ -45,7 +45,13 @@ const routes: Routes = [
   },
   {
     path: 'lodge/:lodgeId',
-    component: LodgingComponent,
+    component: LodgingDetailComponent,
+  },
+  {
+    path: 'lodge/:lodgeId/edit',
+    component: LodgingEditComponent,
+    data: { roles: ['HOST'] },
+    canActivate: [loginRoleGuard]
   },
   {
     path: 'myLodgings',
