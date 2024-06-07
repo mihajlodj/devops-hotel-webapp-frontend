@@ -2,17 +2,23 @@
 <section class="py-5">
   <div class="container px-4 px-lg-5 my-5">
     <div class="row gx-4 gx-lg-5 align-items-center">
-      <div class="col-md-6">
+      <div class="col-md-5">
         <app-carousel [photos]="lodge.photos"></app-carousel>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-7">
         <h1 class="display-5 fw-bolder">{{ this.lodge.name }}</h1>
         <div class="fs-5"><span>{{ this.lodge.location }}</span></div>
         <div class="fs-5"><span>Minimum guests: {{ this.lodge.minimalGuestNumber }}</span></div>
-        <div class="fs-5 mb-1"><span>Maximum guests: {{ this.lodge.maximalGuestNumber }}</span></div>
-        <p class="lead">Amenities: {{this.lodge.amenities.join(';')}}</p>
+        <div class="fs-5"><span>Maximum guests: {{ this.lodge.maximalGuestNumber }}</span></div>
+        <p class="fs-5 mb-1">Amenities: {{this.lodge.amenities.join(';')}}</p>
+        <p *ngIf="this.availabilityPeriods.length === 0" class="fs-5 lead">
+          No available dates for reservation.
+        </p>
+        <p *ngFor="let ap of this.availabilityPeriods" class="fs-5">
+          {{ ap.dateFrom.slice(0, 9) }} to {{ ap.dateTo.slice(0, 9) }}, with price of {{ ap.price }} {{ ap.priceType == 1 ? 'per guest' : 'per lodge' }}
+        </p>
         <div class="d-flex">
-          <button *ngIf="this.isGuest" class="btn btn-outline-success flex-shrink-0" type="button"><i class="bi-cart-fill me-1"></i>Make reservation</button>
+          <button *ngIf="this.isGuest" [disabled]="this.availabilityPeriods.length === 0" class="btn btn-outline-success flex-shrink-0" type="button"><i class="bi-cart-fill me-1"></i>Make reservation</button>
           <a *ngIf="this.isOwner" class="btn btn-outline-primary ms-2" routerLink="edit">Edit</a>
         </div>
       </div>

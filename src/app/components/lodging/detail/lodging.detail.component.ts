@@ -6,6 +6,7 @@ import { LodgingService } from 'src/app/services/lodging.service';
 import { Lodge } from 'src/app/model/lodge/lodge';
 import { environment } from 'src/environments/environment';
 import jwtDecode from 'jwt-decode';
+import { LodgeAvailabilityPeriod } from 'src/app/model/lodge/availability-period';
 
 @Component({
   selector: 'app-lodging-details',
@@ -16,6 +17,7 @@ export class LodgingDetailComponent {
 
   photoUrlPrefix: string = environment.lodgePhotoUrl;
   lodge: Lodge = new Lodge();
+  availabilityPeriods: LodgeAvailabilityPeriod[] = [];
   
   isLoggedIn: boolean = false;
   isHost: boolean = false;
