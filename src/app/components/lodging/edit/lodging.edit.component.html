@@ -1,0 +1,31 @@
+<!-- Product section-->
+<section class="py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="row gx-4 gx-lg-5 align-items-center">
+            <div class="col-md-6">
+                <app-carousel [photos]="lodge.photos"></app-carousel>
+            </div>
+            <div class="col-md-6">
+                <div class="fs-5">
+                    <span>Name:</span><input type="text" class="form-control" [(ngModel)]="this.lodge.name"/>
+                </div>
+                <div class="fs-5">
+                    <span>Location address:</span><input type="text" class="form-control" [(ngModel)]="this.lodge.location"/>
+                </div>
+                <div class="fs-5">
+                    <span>Minimum guests:</span> <input type="number" min="1" class="form-control" [(ngModel)]="this.lodge.minimalGuestNumber "/>
+                </div>
+                <div class="fs-5 mb-1">
+                    <span>Maximum guests:</span> <input type="number" min="1" class="form-control" [(ngModel)]="this.lodge.maximalGuestNumber "/>
+                </div>
+                <div class="fs-5">
+                    <span>Amenities:<span class="lead" style="font-size:16px;"> (Divide by ;)</span></span> <input type="text" class="form-control" [(ngModel)]="this.amenities"/>
+                </div>
+                
+                <div class="d-flex mt-3">
+                    <button class="btn btn-success flex-shrink-0" type="button">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
