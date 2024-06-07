@@ -1,0 +1,21 @@
+<div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+        <div *ngFor="let photo of photos; let i = index"
+            [ngClass]="{'carousel-item': true, 'active': this.show[i]}">
+            <img [src]="this.photoUrlPrefix + photo.url" class="d-block" alt="Photo">
+        </div>
+        <div *ngFor="let src of urls; let i = index" [ngClass]="{'carousel-item': true, 'active': this.show[i]}">
+            <img [src]="src" class="d-block" alt="Photo">
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev"
+        (click)="this.showPrevious()">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next"
+        (click)="this.showNext()">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
