@@ -20,32 +20,29 @@
                             [disabled]="usernameFromService() != pathUsername()" [(ngModel)]="lastName"
                             type="text" class="form-control"></div>
                 </div>
-                <div class="row mt-3">
+                <div class="row mt-3" *ngIf="usernameFromService() === pathUsername()">
                     <div class="col-md-12"><label class="labels">Username</label><input
-                            [disabled]="usernameFromService() != pathUsername()" [(ngModel)]="username"
+                            [(ngModel)]="username"
                             type="text" class="form-control"></div>
                     <div class="col-md-12"><label class="labels">Email</label><input
-                            [disabled]="usernameFromService() != pathUsername()" [(ngModel)]="email"
+                            [(ngModel)]="email"
                             type="email" class="form-control"></div>
                 </div>
-                <hr>
-                <div class="row mt-3">
+                <hr *ngIf="usernameFromService() === pathUsername()">
+                <div class="row mt-3" *ngIf="usernameFromService() === pathUsername()">
                     <div class="col-md-12"><label class="labels">Old password</label><input
-                            [disabled]="usernameFromService() != pathUsername()"
                             [(ngModel)]="oldPassword" type="password" class="form-control"></div>
                     <div class="col-md-6"><label class="labels">New password</label><input
-                            [disabled]="usernameFromService() != pathUsername()"
                             [(ngModel)]="newPassword" type="password" class="form-control"></div>
                     <div class="col-md-6"><label class="labels">Repeat new password</label><input
-                            [disabled]="usernameFromService() != pathUsername()"
                             [(ngModel)]="repeatNewPassword" type="password" class="form-control"></div>
                 </div>
                 <div class="mt-5 text-center" *ngIf="usernameFromService() === pathUsername()">
-                    <button class="btn btn-primary profile-button" type="button" (click)="updateProfile()">Save Profile</button>
-                    <button class="ms-3 btn btn-warning profile-button" style="color:white;" type="button" (click)="changePassword()">Change password</button>
-                    <button class="ms-3 btn btn-danger profile-button" type="button" (click)="deleteProfile()">Delete Profile</button>
+                    <button class="btn btn-outline-primary" type="button" (click)="updateProfile()">Save Profile</button>
+                    <button class="ms-3 btn btn-outline-warning pass-btn" type="button" (click)="changePassword()">Change password</button>
+                    <button class="ms-3 btn btn-outline-danger" type="button" (click)="deleteProfile()">Delete Profile</button>
                 </div>
-                <hr>
+                <hr *ngIf="usernameFromService() === pathUsername()">
                 <div class="mt-5 d-grid gap-2 text-center btn-group" *ngIf="usernameFromService() === pathUsername()">
                     <input type="checkbox" class="btn-check btn-lg btn-block" id="btncheck1" autocomplete="off" (click)="switchNotifications()" [checked]="notificationsAllowed == 'Notifications are enabled'">
                     <label class="btn btn-outline-primary" for="btncheck1"  >{{ notificationsAllowed }}</label>
