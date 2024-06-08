@@ -1,4 +1,4 @@
 export enum PriceType {
-    PER_GUEST = 1,
-    PER_LODGE = 2
+    PER_GUEST = "PER_GUEST",
+    PER_LODGE = "PER_LODGE"
 }
