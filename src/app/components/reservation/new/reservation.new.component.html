@@ -1,0 +1,11 @@
+<div class="input-group">
+    <span class="input-group-text">Guests</span>
+    <input type="number" min="1" [(ngModel)]="newReservation.numberOfGuests" class="form-control" aria-label="Text input with dropdown button">
+    <span class="input-group-text">From</span>
+    <input type="date" class="form-control" [(ngModel)]="newReservation.dateFrom" placeholder="Date from" aria-label="dateFrom">
+    <span class="input-group-text">to</span>
+    <input type="date" class="form-control" [(ngModel)]="newReservation.dateTo" placeholder="Date to" aria-label="dateTo">
+</div>
+<div class="mt-2 text-center">
+    <button class="btn btn-outline-primary" (click)="createRequest()">Send reservation request</button>
+</div>

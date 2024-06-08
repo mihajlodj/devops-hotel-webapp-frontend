@@ -3,5 +3,6 @@ export const environment = {
   apiUrl: '',
   userApiUrl: '',
   lodgePhotoUrl: '',
-  lodgeApiUrl: ''
+  lodgeApiUrl: '',
+  reservationApiUrl: ''
 };
