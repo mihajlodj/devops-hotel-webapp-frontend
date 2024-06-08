@@ -16,12 +16,12 @@
             <form (ngSubmit)="login()">
               <div class="mb-3">
                 <label for="username" class="form-label">Username</label>
-                <input type="text" class="form-control" id="username" name="username" [(ngModel)]="username" required>
+                <input (keypress)="enter($event)" type="text" class="form-control" id="username" name="username" [(ngModel)]="username" required>
               </div>
               <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
                 <div class="input-group">
-                  <input type="{{ showPassword ? 'text' : 'password' }}" class="form-control" id="password" name="password" [(ngModel)]="password" required>
+                  <input (keypress)="enter($event)" type="{{ showPassword ? 'text' : 'password' }}" class="form-control" id="password" name="password" [(ngModel)]="password" required>
                   <button type="button" class="btn btn-outline-secondary" (click)="togglePasswordVisibility()">
                     <i class="bi" [ngClass]="{'bi-eye': showPassword, 'bi-eye-slash': !showPassword}"></i>
                   </button>

@@ -59,4 +59,10 @@ export class LoginComponent {
     }
   }
 
+  enter(event: KeyboardEvent) {
+    if (event.key == 'Enter') {
+      this.login()
+    }
+  }
+
 }
