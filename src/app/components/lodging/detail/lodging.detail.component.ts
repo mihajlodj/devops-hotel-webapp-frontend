@@ -49,6 +49,19 @@ export class LodgingDetailComponent {
           this.setIsOwner();
         }
       });
+      this.lodgingService.getAvalabilityPeriods(id).subscribe({
+        next: (response) => {
+          this.availabilityPeriods = response;
+          this.availabilityPeriods.forEach(e => {
+            e.dateFrom = e.dateFrom.slice(0, 10);
+            e.dateTo = e.dateTo.slice(0, 10);
+          })
+        },
+        error: (err) => {
+          console.log(err);
+          alert(err.message);
+        }
+      });
     }
   }
   setIsOwner() {
