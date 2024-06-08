@@ -11,7 +11,7 @@ import { LodgingService } from 'src/app/services/lodging.service';
 })
 export class NewLodgingComponent {
 
-  urls: any;
+  urls: string[] = [];
   files: File[] = [];
   show: boolean[] = [];
 
@@ -38,7 +38,12 @@ export class NewLodgingComponent {
 
     reader.readAsDataURL(photos[0]);
     reader.onload = (_event) => {
-      this.urls.push(reader.result); 
+      this.urls.push(reader.result ? reader.result.toString() : 'None');
+      let newArr: string[] = [];
+      this.urls.forEach((element: string) => {
+        newArr.push(element);
+      });
+      this.urls = newArr;
     }
   }
 

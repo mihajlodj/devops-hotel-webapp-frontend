@@ -13,7 +13,7 @@ import {RegisterComponent} from "./components/auth/register/register.component";
 import { UnloggedNavbarComponent } from './components/navbar/unlogged-navbar/unlogged-navbar.component';
 import { GuestNavbarComponent } from './components/navbar/guest-navbar/guest-navbar.component';
 import { HostNavbarComponent } from './components/navbar/host-navbar/host-navbar.component';
-import { LodgingComponent } from './components/lodging/details/lodging.component';
+import { LodgingDetailComponent } from './components/lodging/detail/lodging.detail.component';
 import { LodgingListComponent } from './components/lodging/list/lodging-list.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { Page404Component } from './components/page404/page404.component';
@@ -21,6 +21,9 @@ import { ReservationComponent } from './components/reservation/reservation.compo
 import { ReservationListComponent } from './components/reservation/reservation-list/reservation-list.component';
 import { JwtInterceptor } from './interceptor';
 import { NewLodgingComponent } from './components/lodging/new/new-lodging.component';
+import { SearchComponent } from './search/search.component';
+import { LodgingEditComponent } from './components/lodging/edit/lodging.edit.component';
+import { CarouselComponent } from './components/utils/carousel/carousel.component';
 
 @NgModule({
   declarations: [
@@ -32,13 +35,16 @@ import { NewLodgingComponent } from './components/lodging/new/new-lodging.compon
     UnloggedNavbarComponent,
     GuestNavbarComponent,
     HostNavbarComponent,
-    LodgingComponent,
+    LodgingDetailComponent,
     LodgingListComponent,
     ProfileComponent,
     Page404Component,
     ReservationComponent,
     ReservationListComponent,
-    NewLodgingComponent
+    NewLodgingComponent,
+    SearchComponent,
+    LodgingEditComponent,
+    CarouselComponent
   ],
   imports: [
     BrowserModule,
