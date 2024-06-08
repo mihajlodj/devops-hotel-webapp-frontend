@@ -1,29 +1,59 @@
 <!-- Product section-->
 <section class="py-5">
-    <div class="container px-4 px-lg-5 my-5">
+    <div class="container">
         <div class="row gx-4 gx-lg-5 align-items-center">
             <div class="col-md-5">
                 <app-carousel [photos]="lodge.photos"></app-carousel>
             </div>
             <div class="col-md-7">
-                <div class="fs-5">
-                    <span>Name:</span><input type="text" class="form-control" [(ngModel)]="this.lodge.name"/>
+                <h1 class="display-5 fw-bolder">{{ this.lodge.name }}</h1>
+                <div class="fs-5"><span>{{ this.lodge.location }}</span></div>
+                <div class="fs-5"><span>Minimum guests: {{ this.lodge.minimalGuestNumber }}</span></div>
+                <div class="fs-5"><span>Maximum guests: {{ this.lodge.maximalGuestNumber }}</span></div>
+                <p class="fs-5 mb-1">Amenities: {{this.lodge.amenities.join(';')}}</p>
+                <hr>
+                <div>
+                    <span class="fs-5">Availability periods</span>
+                    <span *ngIf="this.availabilityPeriods.length === 0"><br>None yet. Create some!</span>
+                    <div class="input-group" *ngFor="let aPeriod of availabilityPeriods">
+                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" 
+                        data-bs-toggle="dropdown" aria-expanded="false">{{ aPeriod.priceType }}</button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" (click)="changePriceType(aPeriod, 'Per guest')">Per guest</a></li>
+                            <li><a class="dropdown-item" (click)="changePriceType(aPeriod, 'Per lodge')">Per lodge</a></li>
+                        </ul>
+                        <span class="input-group-text">$</span>
+                        <input type="number" [(ngModel)]="aPeriod.price" min="1" class="form-control" aria-label="Text input with dropdown button">
+                        <span class="input-group-text">From</span>
+                        <input type="date" class="form-control" [(ngModel)]="aPeriod.dateFrom" placeholder="Date from" aria-label="dateFrom">
+                        <span class="input-group-text">to</span>
+                        <input type="date" class="form-control" [(ngModel)]="aPeriod.dateTo" placeholder="Date to" aria-label="dateTo">
+                        <button class="btn btn-outline-success" (click)="saveAPeriod(aPeriod)" type="button">Save</button>
+                        <button class="btn btn-outline-danger" (click)="deleteAPeriod(aPeriod.id)" type="button">Delete</button>
+                    </div>
                 </div>
-                <div class="fs-5">
-                    <span>Location address:</span><input type="text" class="form-control" [(ngModel)]="this.lodge.location"/>
+                <hr>
+                <span class="fs-5">Create new availability period</span>
+                <div class="input-group">
+                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" 
+                    data-bs-toggle="dropdown" aria-expanded="false">{{ newPriceTypeLabel }}</button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" (click)="setPriceType('Per guest')">Per guest</a></li>
+                        <li><a class="dropdown-item" (click)="setPriceType('Per lodge')">Per lodge</a></li>
+                    </ul>
+                    <span class="input-group-text">$</span>
+                    <input type="number" min="1" [(ngModel)]="this.newAvailabilityPeriod.price" class="form-control" aria-label="Text input with dropdown button">
+                    <span class="input-group-text">From</span>
+                    <input type="date" class="form-control" [(ngModel)]="this.newAvailabilityPeriod.dateFrom" placeholder="Date from" aria-label="dateFrom">
+                    <span class="input-group-text">to</span>
+                    <input type="date" class="form-control" [(ngModel)]="this.newAvailabilityPeriod.dateTo" placeholder="Date to" aria-label="dateTo">
                 </div>
-                <div class="fs-5">
-                    <span>Minimum guests:</span> <input type="number" min="1" class="form-control" [(ngModel)]="this.lodge.minimalGuestNumber "/>
-                </div>
-                <div class="fs-5 mb-1">
-                    <span>Maximum guests:</span> <input type="number" min="1" class="form-control" [(ngModel)]="this.lodge.maximalGuestNumber "/>
-                </div>
-                <div class="fs-5">
-                    <span>Amenities:<span class="lead" style="font-size:16px;"> (Divide by ;)</span></span> <input type="text" class="form-control" [(ngModel)]="this.amenities"/>
-                </div>
-                
                 <div class="d-flex mt-3">
-                    <button class="btn btn-outline-success flex-shrink-0" type="button">Save changes</button>
+                    <button class="btn btn-outline-primary flex-shrink-0 w-100" type="button" (click)="addPeriod()">Add availability period</button>
+                </div>
+                <hr>
+                <div class="d-flex mt-3">
+                    <button class="btn btn-outline-danger flex-shrink-0 w-100" type="button">Delete lodge</button>
                 </div>
             </div>
         </div>
