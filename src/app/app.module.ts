@@ -24,6 +24,12 @@ import { NewLodgingComponent } from './components/lodging/new/new-lodging.compon
 import { SearchComponent } from './search/search.component';
 import { LodgingEditComponent } from './components/lodging/edit/lodging.edit.component';
 import { CarouselComponent } from './components/utils/carousel/carousel.component';
+import { NgbModule, NgbToast } from '@ng-bootstrap/ng-bootstrap';
+import { AlertContainerComponent } from './components/alert/container/alert-container.component';
+import { AlertDangerComponent } from './components/alert/danger/alert.danger.component';
+import { AlertInfoComponent } from './components/alert/info/alert.info.component';
+import { AlertSuccessComponent } from './components/alert/success/alert.success.component';
+import { AlertWarningComponent } from './components/alert/warning/alert.warning.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +50,11 @@ import { CarouselComponent } from './components/utils/carousel/carousel.componen
     NewLodgingComponent,
     SearchComponent,
     LodgingEditComponent,
-    CarouselComponent
+    CarouselComponent,
+    AlertInfoComponent,
+    AlertSuccessComponent,
+    AlertDangerComponent,
+    AlertWarningComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +62,10 @@ import { CarouselComponent } from './components/utils/carousel/carousel.componen
     NgxSpinnerModule,
     BrowserAnimationsModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule,
+    NgbToast,
+    AlertContainerComponent,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

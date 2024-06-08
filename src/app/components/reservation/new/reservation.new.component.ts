@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { Lodge } from 'src/app/model/lodge/lodge';
 import { Reservation } from 'src/app/model/reservation/reservation';
+import { AlertService } from 'src/app/services/alert.service';
 import { ReservationService } from 'src/app/services/reservation.service';
 
 @Component({
@@ -15,7 +16,7 @@ export class NewReservationComponent {
 
   newReservation: Reservation = new Reservation();
 
-  constructor(private reservationService: ReservationService, private router: Router) { }
+  constructor(private reservationService: ReservationService, private router: Router, private alertService: AlertService) { }
 
   createRequest() {
     this.newReservation.lodgeId = this.lodge.id;
@@ -23,12 +24,12 @@ export class NewReservationComponent {
     this.newReservation.dateTo   += ' 00:00:00.0000000';
     this.reservationService.create(this.newReservation).subscribe({
       next: () => {
-        alert('Reservation request sent');
+        this.alertService.alertInfo('Reservation request sent');
         this.router.navigate(['']);
       },
       error: (err) => {
         console.log(err);
-        alert(err.message);
+        this.alertService.alertDanger(err.message);
       }
     });
   }

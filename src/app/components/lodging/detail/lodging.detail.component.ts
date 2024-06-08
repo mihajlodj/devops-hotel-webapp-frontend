@@ -7,6 +7,7 @@ import { Lodge } from 'src/app/model/lodge/lodge';
 import { environment } from 'src/environments/environment';
 import jwtDecode from 'jwt-decode';
 import { LodgeAvailabilityPeriod } from 'src/app/model/lodge/availability-period';
+import { AlertService } from 'src/app/services/alert.service';
 
 @Component({
   selector: 'app-lodging-details',
@@ -25,7 +26,8 @@ export class LodgingDetailComponent {
   isOwner: boolean = false;
   constructor(private currentUserService: CurrentUserService, 
     private lodgingService: LodgingService, 
-    private route: ActivatedRoute, private router: Router) {
+    private route: ActivatedRoute, private router: Router,
+    private alertService: AlertService) {
 
   }
 
@@ -59,7 +61,7 @@ export class LodgingDetailComponent {
         },
         error: (err) => {
           console.log(err);
-          alert(err.message);
+          this.alertService.alertWarning(err.message);
         }
       });
     }
