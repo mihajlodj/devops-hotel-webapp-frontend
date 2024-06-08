@@ -15,7 +15,7 @@
           No available dates for reservation.
         </p>
         <p *ngFor="let ap of this.availabilityPeriods" class="fs-5">
-          {{ ap.dateFrom.slice(0, 9) }} to {{ ap.dateTo.slice(0, 9) }}, with price of {{ ap.price }} {{ ap.priceType == 1 ? 'per guest' : 'per lodge' }}
+          {{ ap.dateFrom.slice(0, 9) }} to {{ ap.dateTo.slice(0, 9) }}, with price of {{ ap.price }} {{ ap.priceType == 'PER_GUEST' ? 'per guest' : 'per lodge' }}
         </p>
         <div class="d-flex">
           <button *ngIf="this.isGuest" [disabled]="this.availabilityPeriods.length === 0" class="btn btn-outline-success flex-shrink-0" type="button"><i class="bi-cart-fill me-1"></i>Make reservation</button>

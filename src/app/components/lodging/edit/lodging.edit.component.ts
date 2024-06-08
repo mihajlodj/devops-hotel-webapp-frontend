@@ -63,6 +63,10 @@ export class LodgingEditComponent {
       this.lodgingService.getAvalabilityPeriods(id).subscribe({
         next: (response) => {
           this.availabilityPeriods = response;
+          this.availabilityPeriods.forEach(e => {
+            e.dateFrom = e.dateFrom.slice(0, 10);
+            e.dateTo = e.dateTo.slice(0, 10);
+          })
         },
         error: (err) => {
           console.log(err);
@@ -115,6 +119,8 @@ export class LodgingEditComponent {
 
   addPeriod() {
     this.newAvailabilityPeriod.lodgeId = this.lodge.id;
+    this.newAvailabilityPeriod.dateFrom += ' 00:00:00.0000000';
+    this.newAvailabilityPeriod.dateTo   += ' 00:00:00.0000000';
     this.lodgingService.createAvailabilityPeriod(this.newAvailabilityPeriod).subscribe(
       this.observerOrNext('Availability period added'));
   }
@@ -125,6 +131,8 @@ export class LodgingEditComponent {
     );
   }
   saveAPeriod(aPeriod: LodgeAvailabilityPeriod) {
+    aPeriod.dateFrom += ' 00:00:00.0000000';
+    aPeriod.dateTo   += ' 00:00:00.0000000';
     this.lodgingService.updateAvailabilityPeriod(aPeriod.id, aPeriod).subscribe(
       this.observerOrNext('Availability period updated')
     )

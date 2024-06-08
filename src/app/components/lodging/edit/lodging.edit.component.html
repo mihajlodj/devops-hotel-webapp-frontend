@@ -17,7 +17,7 @@
                     <span *ngIf="this.availabilityPeriods.length === 0"><br>None yet. Create some!</span>
                     <div class="input-group" *ngFor="let aPeriod of availabilityPeriods">
                         <button class="btn btn-outline-secondary dropdown-toggle" type="button" 
-                        data-bs-toggle="dropdown" aria-expanded="false">{{ aPeriod.priceType }}</button>
+                        data-bs-toggle="dropdown" aria-expanded="false">{{ aPeriod.priceType === 'PER_GUEST' ? 'Per guest' : 'Per lodge' }}</button>
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li><a class="dropdown-item" (click)="changePriceType(aPeriod, 'Per guest')">Per guest</a></li>
                             <li><a class="dropdown-item" (click)="changePriceType(aPeriod, 'Per lodge')">Per lodge</a></li>
@@ -44,16 +44,12 @@
                     <span class="input-group-text">$</span>
                     <input type="number" min="1" [(ngModel)]="this.newAvailabilityPeriod.price" class="form-control" aria-label="Text input with dropdown button">
                     <span class="input-group-text">From</span>
-                    <input type="date" class="form-control" [(ngModel)]="this.newAvailabilityPeriod.dateFrom" placeholder="Date from" aria-label="dateFrom">
+                    <input type="date" class="form-control" [(ngModel)]="this.newAvailabilityPeriod.dateFrom" [value]="this.newAvailabilityPeriod.dateFrom.slice(0, 9)" placeholder="Date from" aria-label="dateFrom">
                     <span class="input-group-text">to</span>
                     <input type="date" class="form-control" [(ngModel)]="this.newAvailabilityPeriod.dateTo" placeholder="Date to" aria-label="dateTo">
                 </div>
                 <div class="d-flex mt-3">
                     <button class="btn btn-outline-primary flex-shrink-0 w-100" type="button" (click)="addPeriod()">Add availability period</button>
-                </div>
-                <hr>
-                <div class="d-flex mt-3">
-                    <button class="btn btn-outline-danger flex-shrink-0 w-100" type="button">Delete lodge</button>
                 </div>
             </div>
         </div>

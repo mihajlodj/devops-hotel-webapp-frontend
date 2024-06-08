@@ -1,11 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Router} from "@angular/router";
-import {BehaviorSubject, Observable, catchError, throwError} from "rxjs";
-import {JwtPayload} from "../model/login/jwt-payload";
-import jwtDecode from "jwt-decode";
+import { Observable, catchError, throwError} from "rxjs";
 import { HttpClient } from '@angular/common/http';
-import { ExceptionMessages } from '../model/exception-messages';
-import { User } from '../model/user/user';
 import { environment } from 'src/environments/environment';
 import { Lodge } from '../model/lodge/lodge';
 import { LodgeAvailabilityPeriod } from '../model/lodge/availability-period';
@@ -18,7 +14,7 @@ export class LodgingService {
 
   private apiUrl: string = environment.lodgeApiUrl;
 
-  constructor(private router: Router, private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) { }
 
   create(formData: FormData): Observable<Lodge> {
     return this.httpClient.post<Lodge>(this.apiUrl + '/create', formData).pipe(catchError(err => {
@@ -80,7 +76,7 @@ export class LodgingService {
     }));
   }
   createAvailabilityPeriod(aPeriod: LodgeAvailabilityPeriod): Observable<LodgeAvailabilityPeriod> {
-    return this.httpClient.post<LodgeAvailabilityPeriod>(this.apiUrl + '/availability/create/', aPeriod).pipe(catchError(err => {
+    return this.httpClient.post<LodgeAvailabilityPeriod>(this.apiUrl + '/availability/create', aPeriod).pipe(catchError(err => {
       let message = "Error: Creating lodge availability period failed";
       if (err.error) {
         message = err.error.message;
