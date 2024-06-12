@@ -4,5 +4,6 @@ export const environment = {
   lodgePhotoUrl: 'http://localhost:8081',
   userApiUrl: 'http://localhost:8080/api/users',
   lodgeApiUrl: 'http://localhost:8081/api/lodge',
-  reservationApiUrl: 'http://localhost:8082/api/reservation'
+  reservationApiUrl: 'http://localhost:8082/api/reservation',
+  ratingApiUrl: 'http://localhost:8083/api/ratings'
 };

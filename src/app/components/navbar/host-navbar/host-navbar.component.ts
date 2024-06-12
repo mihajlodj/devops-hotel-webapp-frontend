@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import {Location} from '@angular/common';
 import { CurrentUserService } from 'src/app/services/current-user.service';
 
@@ -13,6 +12,7 @@ export class HostNavbarComponent {
   profileActive: boolean = false;
   myLodgingsActive: boolean = false;
   newLodgingActive: boolean = false;
+  reservationReqActive: boolean = false;
 
   constructor(private currentUserService: CurrentUserService, private location: Location) {
 
@@ -31,6 +31,10 @@ export class HostNavbarComponent {
       case '/newLodging': {
         this.newLodgingActive = true;
         break;
+      }
+      case '/reservationRequests': {
+        this.reservationReqActive = true;
+        break
       }
       default: {
         break;

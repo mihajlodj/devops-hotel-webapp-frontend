@@ -102,12 +102,15 @@ export class LodgingEditComponent {
       next: (response: any) => {
         this.alertService.alertSuccess(message);
         if (response) {
+          response = response as LodgeAvailabilityPeriod;
+          response.dateFrom = response.dateFrom.slice(0, 10);
+          response.dateTo = response.dateTo.slice(0, 10);
           this.availabilityPeriods.push(response);
         }
       },
       error: (err: any) => {
         console.log(err);
-        this.alertService.alertDanger(message);
+        this.alertService.alertDanger(err.message);
       }
     }
   }
@@ -122,8 +125,6 @@ export class LodgingEditComponent {
 
   addPeriod() {
     this.newAvailabilityPeriod.lodgeId = this.lodge.id;
-    this.newAvailabilityPeriod.dateFrom += ' 00:00:00.0000000';
-    this.newAvailabilityPeriod.dateTo   += ' 00:00:00.0000000';
     this.lodgingService.createAvailabilityPeriod(this.newAvailabilityPeriod).subscribe(
       this.observerOrNext('Period added successfuly!'));
   }
@@ -134,8 +135,6 @@ export class LodgingEditComponent {
     );
   }
   saveAPeriod(aPeriod: LodgeAvailabilityPeriod) {
-    aPeriod.dateFrom += ' 00:00:00.0000000';
-    aPeriod.dateTo   += ' 00:00:00.0000000';
     this.lodgingService.updateAvailabilityPeriod(aPeriod.id, aPeriod).subscribe(
       this.observerOrNext('Period updated successfuly')
     )

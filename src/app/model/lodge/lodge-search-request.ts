@@ -1,10 +1,10 @@
 export class LodgeSearchRequest {
-    dateFrom: string;
-    dateTo: string;
+    dateFrom: string | null;
+    dateTo: string | null;
     guestNumber: number | undefined;
-    location: string;
+    location: string | null;
 
-    constructor(dateFrom: string, dateTo: string, guestNumber: number | undefined, location: string) {
+    constructor(dateFrom: string | null, dateTo: string | null, guestNumber: number | undefined, location: string | null) {
       this.dateFrom = dateFrom;
       this.dateTo = dateTo;
       this.guestNumber = guestNumber;

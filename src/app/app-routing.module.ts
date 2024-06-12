@@ -10,6 +10,7 @@ import { userGuard } from './guards/user.guard';
 import { NewLodgingComponent } from './components/lodging/new/new-lodging.component';
 import { LodgingDetailComponent } from './components/lodging/detail/lodging.detail.component';
 import { LodgingEditComponent } from './components/lodging/edit/lodging.edit.component';
+import { ReservationRequestsComponent } from './components/reservation/list-requests/reservation-list.component';
 
 const routes: Routes = [
   {
@@ -62,6 +63,12 @@ const routes: Routes = [
   {
     path: 'search',
     component: LodgingListComponent
+  },
+  {
+    path: 'reservationRequests',
+    component: ReservationRequestsComponent,
+    data: { roles: ['HOST', 'GUEST'] },
+    canActivate: [loginRoleGuard]
   },
   {
     path: '**',

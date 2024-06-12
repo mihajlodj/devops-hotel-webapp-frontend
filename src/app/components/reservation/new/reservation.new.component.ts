@@ -20,8 +20,6 @@ export class NewReservationComponent {
 
   createRequest() {
     this.newReservation.lodgeId = this.lodge.id;
-    this.newReservation.dateFrom += ' 00:00:00.0000000';
-    this.newReservation.dateTo   += ' 00:00:00.0000000';
     this.reservationService.create(this.newReservation).subscribe({
       next: () => {
         this.alertService.alertInfo('Reservation request sent');

@@ -4,6 +4,10 @@
     <div class="row gx-4 gx-lg-5 align-items-center">
       <div class="col-md-5">
         <app-carousel [photos]="lodge.photos"></app-carousel>
+        <div class="text-center fs-5">
+          <span>Lodge rating: {{ lodgeRating ? lodgeRating + '/5' : 'Not ratings yet'}}</span> <br>
+          <span>Host rating: {{ hostRating ? hostRating + '/5' : 'Not ratings yet'}}</span>
+        </div>
       </div>
       <div class="col-md-7">
         <h1 class="display-5 fw-bolder">{{ this.lodge.name }}</h1>
@@ -21,7 +25,7 @@
         <span class="fs-5">Available periods for reservation:</span>
         <span *ngIf="this.availabilityPeriods.length === 0"> None defined yet.</span>
         <ul *ngFor="let ap of this.availabilityPeriods" class="fs-5">
-          <li>{{ ap.dateFrom.slice(0, 10) }} to {{ ap.dateTo.slice(0, 10) }}, with price of ${{ ap.price }} {{ ap.priceType == 'PER_GUEST' ? 'per guest' : 'per lodge' }}</li>
+          <li>{{ ap.dateFrom.slice(0, 10) }} to {{ ap.dateTo.slice(0, 10) }}, with price of ${{ ap.price }} {{ ap.priceType == 'PER_GUEST' ? 'per guest' : 'per lodge' }}, total price being ${{getTotalPrice(ap)}}</li>
         </ul>
         <div class="d-flex">
           <a *ngIf="this.isOwner" class="btn btn-outline-primary ms-2" routerLink="edit">Edit</a>

@@ -4,5 +4,6 @@ export const environment = {
   userApiUrl: '',
   lodgePhotoUrl: '',
   lodgeApiUrl: '',
-  reservationApiUrl: ''
+  reservationApiUrl: '',
+  ratingApiUrl: ''
 };

@@ -43,6 +43,6 @@ export class AppComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    this.alertService.setTemplates(this.successAlert, this.dangerAlert, this.infoAlert, this.warningAlert);
+    this.alertService.setTemplates(this.successAlert, this.dangerAlert, this.warningAlert, this.infoAlert);
   }
 }

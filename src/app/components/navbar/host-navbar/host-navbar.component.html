@@ -19,6 +19,10 @@
           <a [ngClass]="{'nav-link': true, 'active': this.newLodgingActive}" aria-current="page"
             [href]="'/newLodging'">Create new lodging</a>
         </li>
+        <li class="nav-item">
+          <a [ngClass]="{'nav-link': true, 'active': this.reservationReqActive}" aria-current="page"
+            [href]="'/reservationRequests'">Reservation requests</a>
+        </li>
       </ul>
       <app-search></app-search>
       <button class="ms-2 btn btn-danger" type="submit" (click)="logout()">Logout</button>

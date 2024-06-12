@@ -8,6 +8,7 @@ import { environment } from 'src/environments/environment';
 import jwtDecode from 'jwt-decode';
 import { LodgeAvailabilityPeriod } from 'src/app/model/lodge/availability-period';
 import { AlertService } from 'src/app/services/alert.service';
+import { RatingService } from 'src/app/services/rating.service';
 
 @Component({
   selector: 'app-lodging-details',
@@ -19,6 +20,8 @@ export class LodgingDetailComponent {
   photoUrlPrefix: string = environment.lodgePhotoUrl;
   lodge: Lodge = new Lodge();
   availabilityPeriods: LodgeAvailabilityPeriod[] = [];
+  lodgeRating: number | null = null;
+  hostRating: number | null = null;
   
   isLoggedIn: boolean = false;
   isHost: boolean = false;
@@ -27,7 +30,7 @@ export class LodgingDetailComponent {
   constructor(private currentUserService: CurrentUserService, 
     private lodgingService: LodgingService, 
     private route: ActivatedRoute, private router: Router,
-    private alertService: AlertService) {
+    private alertService: AlertService, private ratingService: RatingService) {
 
   }
 
@@ -49,6 +52,14 @@ export class LodgingDetailComponent {
         next: (response) => {
           this.lodge = response;
           this.setIsOwner();
+          this.ratingService.getAvgHostRating(this.lodge.ownerId).subscribe({
+            next: (response) => {
+              this.hostRating = response;
+            },
+            error: (err) => {
+              this.alertService.alertWarning(err.message);
+            }
+          })
         }
       });
       this.lodgingService.getAvalabilityPeriods(id).subscribe({
@@ -64,6 +75,14 @@ export class LodgingDetailComponent {
           this.alertService.alertWarning(err.message);
         }
       });
+      this.ratingService.getAvgLodgeRating(id).subscribe({
+        next: (response) => {
+          this.lodgeRating = response;
+        },
+        error: (err) => {
+          this.alertService.alertWarning(err.message);
+        }
+      });
     }
   }
   setIsOwner() {
@@ -76,6 +95,11 @@ export class LodgingDetailComponent {
   checkRoles(){
     this.isGuest = this.currentUserService.checkUserRole(UserRole.GUEST);
     this.isHost = this.currentUserService.checkUserRole(UserRole.HOST)
+  }
+  getTotalPrice(ap: LodgeAvailabilityPeriod) {
+    let start = Date.parse(ap.dateFrom);
+    let end = Date.parse(ap.dateTo);
+    return Math.round((end - start) / (1000 * 60 * 60 * 24)) * ap.price;
   }
 
 }

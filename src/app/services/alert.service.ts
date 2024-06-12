@@ -52,6 +52,9 @@ export class AlertService {
 		this.show({ template, classname: 'bg-transparent', delay: 5000 });
 	}
 	public alertDanger(message: string) {
+		if (message === '') {
+			message = 'Unknown error occured.';
+		}
 		this.setAlertMessage(message);
 		let template = this.dangerAlertTemplate as TemplateRef<any>;
 		this.show({ template, classname: 'bg-transparent', delay: 5000 });

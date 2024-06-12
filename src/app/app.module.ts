@@ -18,7 +18,7 @@ import { LodgingListComponent } from './components/lodging/list/lodging-list.com
 import { ProfileComponent } from './components/profile/profile.component';
 import { Page404Component } from './components/page404/page404.component';
 import { NewReservationComponent } from './components/reservation/new/reservation.new.component';
-import { ReservationListComponent } from './components/reservation/list/reservation-list.component';
+import { ReservationRequestsComponent } from './components/reservation/list-requests/reservation-list.component';
 import { JwtInterceptor } from './interceptor';
 import { NewLodgingComponent } from './components/lodging/new/new-lodging.component';
 import { SearchComponent } from './search/search.component';
@@ -46,7 +46,7 @@ import { AlertWarningComponent } from './components/alert/warning/alert.warning.
     ProfileComponent,
     Page404Component,
     NewReservationComponent,
-    ReservationListComponent,
+    ReservationRequestsComponent,
     NewLodgingComponent,
     SearchComponent,
     LodgingEditComponent,
