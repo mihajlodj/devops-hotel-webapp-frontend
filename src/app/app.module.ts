@@ -21,7 +21,7 @@ import { NewReservationComponent } from './components/reservation/new/reservatio
 import { ReservationRequestsComponent } from './components/reservation/list-requests/requests-list.component';
 import { JwtInterceptor } from './interceptor';
 import { NewLodgingComponent } from './components/lodging/new/new-lodging.component';
-import { SearchComponent } from './search/search.component';
+import { SearchComponent } from './components/search/search.component';
 import { LodgingEditComponent } from './components/lodging/edit/lodging.edit.component';
 import { CarouselComponent } from './components/utils/carousel/carousel.component';
 import { NgbModule, NgbToast } from '@ng-bootstrap/ng-bootstrap';
