@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { LodgeSearchRequest } from '../model/lodge/lodge-search-request';
+import { LodgeSearchRequest } from 'src/app/model/lodge/lodge-search-request';
 import { Router } from '@angular/router';
 import { NgbCalendar, NgbDate, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 
