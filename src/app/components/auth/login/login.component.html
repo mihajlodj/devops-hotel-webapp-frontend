@@ -1,0 +1,47 @@
+<div class="container-fluid" id="login-main">
+  <div class="container login-position-div">
+
+    <div class="row justify-content-center text-center">
+      <div class="col-md-4">
+        <h3>
+          Login
+        </h3>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-md-4">
+        <div class="card login-div">
+          <div class="card-body">
+            <form (ngSubmit)="login()">
+              <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input (keypress)="enter($event)" type="text" class="form-control" id="username" name="username" [(ngModel)]="username" required>
+              </div>
+              <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <div class="input-group">
+                  <input (keypress)="enter($event)" type="{{ showPassword ? 'text' : 'password' }}" class="form-control" id="password" name="password" [(ngModel)]="password" required>
+                  <button type="button" class="btn btn-outline-secondary" (click)="togglePasswordVisibility()">
+                    <i class="bi" [ngClass]="{'bi-eye': showPassword, 'bi-eye-slash': !showPassword}"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="mb-3 text-center">
+                <p class="error-text"> {{ errorText }} </p>
+              </div>
+              <button type="submit" class="btn btn-primary login-button">Login</button>
+            </form>
+
+            <div class="register-link text-center">
+              <a href="/register">Don't have an account? Sign up.</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <app-loading></app-loading>
+
+  </div>
+</div>

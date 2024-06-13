@@ -1,0 +1,31 @@
+<header>
+    <ng-container *ngIf="isLoggedIn; else loggedOut">
+      <ng-container *ngIf="isHost">
+        <app-host-navbar></app-host-navbar>
+      </ng-container>
+      <ng-container *ngIf="isGuest">
+        <app-guest-navbar></app-guest-navbar>
+      </ng-container>
+    </ng-container>
+
+    <ng-template #loggedOut>
+        <app-unlogged-navbar></app-unlogged-navbar>
+    </ng-template>
+</header>
+
+<router-outlet></router-outlet>
+
+
+<ng-template #successAlert>
+  <app-alert-success [message]="alertMessage"></app-alert-success>
+</ng-template>
+<ng-template #dangerAlert>
+  <app-alert-danger [message]="alertMessage"></app-alert-danger>
+</ng-template>
+<ng-template #warningAlert>
+  <app-alert-warning [message]="alertMessage"></app-alert-warning>
+</ng-template>
+<ng-template #infoAlert>
+  <app-alert-info [message]="alertMessage"></app-alert-info>
+</ng-template>
+<app-alert-container></app-alert-container>

@@ -1,0 +1,14 @@
+#home-main {
+  margin-top: 60px;
+}
+
+.home-button {
+  display: block;
+  margin: 0 auto;
+}
+
+.home-link {
+  display: block;
+  margin: 0 auto;
+  padding-top: 20px;
+}

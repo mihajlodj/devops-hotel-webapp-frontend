@@ -1,0 +1,33 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Lodge name</th>
+      <th scope="col">Location</th>
+      <th scope="col">Start date</th>
+      <th scope="col">End date</th>
+      <th scope="col">$ Price</th>
+      <th scope="col">Status</th>
+      <th scope="col" *ngIf="!isHost">Host</th>
+      <th scope="col" *ngIf="isHost">Guest</th>
+      <th scope="col" *ngIf="!isHost">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let reservation of reservations; index as i">
+      <th scope="row">{{ i + 1 }}</th>
+      <td>{{ getLodgeName(reservation) }}</td>
+      <td>{{ getLodgeLocation(reservation) }}</td>
+      <td>{{ reservation.dateFrom }}</td>
+      <td>{{ reservation.dateTo }}</td>
+      <td>{{ reservation.price }}</td>
+      <td>{{ reservation.status }}</td>
+      <td *ngIf="!isHost">{{ getHostFullName(reservation) }}</td>
+      <td *ngIf="isHost">{{ getGuestFullName(reservation) }}</td>
+      <td *ngIf="!isHost" colspan="2">
+          <button type="button" [disabled]="!isReservationCancelable(reservation)" class="btn btn-outline-danger" 
+          (click)="cancelReservation(reservation)">Cancel</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

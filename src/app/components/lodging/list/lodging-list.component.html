@@ -1,0 +1,52 @@
+<ng-container *ngIf="this.lodges.length > 0; else noLodges">
+    <!-- Header-->
+    <header class="bg-primary py-1" *ngIf="this.router.url !== '/myLodgings'">
+        <div class="container px-4 px-lg-5 my-1">
+            <div class="text-center text-white">
+                <h1 class="display-4 fw-bolder">Find your favorite lodging!</h1>
+                <p class="lead fw-normal text-white-50 mb-0">We host the best, certified and fair landlords</p>
+            </div>
+        </div>
+    </header>
+    <!-- Section-->
+    <section class="py-5">
+        <div class="container px-4 px-lg-5 mt-5">
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                <div class="col mb-5" *ngFor="let lodge of this.lodges">
+                    <div class="card h-100">
+                        <!-- Product image--><img class="card-img-top" [src]="this.photoUrlPrefix + lodge.photos[0].url"
+                            alt="...">
+                        <!-- Product details-->
+                        <div class="card-body p-4">
+                            <div class="text-center">
+                                <!-- Product name-->
+                                <h5 class="fw-bolder">{{ lodge.name }}</h5>
+                                <!-- Location -->
+                                <div class="d-flex justify-content-center mb-2">{{lodge.location}}</div>
+                            </div>
+                        </div>
+                        <!-- Product actions-->
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <div class="text-center"><a class="btn btn-outline-primary mt-auto"
+                                    [href]="'lodge/' + lodge.id">Details</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</ng-container>
+<ng-template #noLodges>
+    <!-- Header-->
+    <header class="bg-primary py-1">
+        <div class="container px-4 px-lg-5 my-1">
+            <div class="text-center text-white">
+                <h1 class="display-4 fw-bolder">No lodges found :&lpar;</h1>
+                <p class="lead fw-normal text-white-50 mb-0">Please try again later</p>
+            </div>
+        </div>
+    </header>
+    <section>
+        
+    </section>
+</ng-template>
