@@ -12,7 +12,7 @@ export class HostNavbarComponent {
   profileActive: boolean = false;
   myLodgingsActive: boolean = false;
   newLodgingActive: boolean = false;
-  reservationReqActive: boolean = false;
+  reservations: boolean = false;
 
   constructor(private currentUserService: CurrentUserService, private location: Location) {
 
@@ -32,9 +32,13 @@ export class HostNavbarComponent {
         this.newLodgingActive = true;
         break;
       }
-      case '/reservationRequests': {
-        this.reservationReqActive = true;
-        break
+      case ('/reservationRequests'): {
+        this.reservations = true;
+        break;
+      }
+      case ('/myReservations'): {
+        this.reservations = true;
+        break;
       }
       default: {
         break;

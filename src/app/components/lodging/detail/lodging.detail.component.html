@@ -6,7 +6,8 @@
         <app-carousel [photos]="lodge.photos"></app-carousel>
         <div class="text-center fs-5">
           <span>Lodge rating: {{ lodgeRating ? lodgeRating + '/5' : 'Not ratings yet'}}</span> <br>
-          <span>Host rating: {{ hostRating ? hostRating + '/5' : 'Not ratings yet'}}</span>
+          <span>Host: {{ getHostFullName() }}</span> <br>
+          <span>Rating: {{ hostRating ? hostRating + '/5' : 'Not ratings yet'}}</span>
         </div>
       </div>
       <div class="col-md-7">

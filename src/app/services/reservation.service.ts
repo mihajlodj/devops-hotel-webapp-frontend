@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { Reservation } from '../model/reservation/reservation';
+import { ReservationRequestCreateRequest } from '../model/reservation/request-for-reservation-request';
 import { Observable, catchError, throwError } from 'rxjs';
 import { RequestForReservation } from '../model/reservation/request-for-reservation';
+import { Reservation } from '../model/reservation/reservation';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +15,8 @@ export class ReservationService {
 
   constructor(private httpClient: HttpClient) { }
 
-  create(reservation: Reservation): Observable<Reservation> {
-    return this.httpClient.post<Reservation>(this.apiUrl + '/requestforreservation', reservation).pipe(catchError(err => {
+  create(reservation: ReservationRequestCreateRequest): Observable<ReservationRequestCreateRequest> {
+    return this.httpClient.post<ReservationRequestCreateRequest>(this.apiUrl + '/requestforreservation', reservation).pipe(catchError(err => {
       let message = 'Error: Sending reservation request failed';
       if(err.error){
         message = err.error.message;
@@ -99,6 +100,51 @@ export class ReservationService {
   getGuestCancelCount(id: string): Observable<number> {
     return this.httpClient.get<number>(this.apiUrl + '/canceled/count/' + id).pipe(catchError(err => {
       let message = 'Error: Getting guest cancelation count failed.';
+      if(err.error){
+        message = err.error.message;
+      }
+      return throwError(() => new Error(message));
+    }));
+  }
+  getHostReservations(): Observable<Reservation[]> {
+    return this.httpClient.get<Reservation[]>(this.apiUrl + '/all/host').pipe(catchError(err => {
+      let message = 'Error: Getting host reservation failed.';
+      if(err.error){
+        message = err.error.message;
+      }
+      return throwError(() => new Error(message));
+    }));
+  }
+  getGuestReservations(): Observable<Reservation[]> {
+    return this.httpClient.get<Reservation[]>(this.apiUrl + '/all/guest').pipe(catchError(err => {
+      let message = 'Error: Getting guest reservation failed.';
+      if(err.error){
+        message = err.error.message;
+      }
+      return throwError(() => new Error(message));
+    }));
+  }
+  getLodgeReservations(lodgeId: string): Observable<Reservation[]> {
+    return this.httpClient.get<Reservation[]>(this.apiUrl + '/all/' + lodgeId).pipe(catchError(err => {
+      let message = 'Error: Getting lodge reservation failed.';
+      if(err.error){
+        message = err.error.message;
+      }
+      return throwError(() => new Error(message));
+    }));
+  }
+  cancelReservation(reservationId: string) {
+    return this.httpClient.put(this.apiUrl + '/cancellation/' + reservationId, {}).pipe(catchError(err => {
+      let message = 'Error: Canceling reservation failed.';
+      if(err.error){
+        message = err.error.message;
+      }
+      return throwError(() => new Error(message));
+    }));
+  }
+  getAllReservationsForCancelation(): Observable<Reservation[]> {
+    return this.httpClient.get<Reservation[]>(this.apiUrl + '/all/cancellation').pipe(catchError(err => {
+      let message = 'Error: Getting reservations for cancellation failed.';
       if(err.error){
         message = err.error.message;
       }

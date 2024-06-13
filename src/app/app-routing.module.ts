@@ -10,7 +10,8 @@ import { userGuard } from './guards/user.guard';
 import { NewLodgingComponent } from './components/lodging/new/new-lodging.component';
 import { LodgingDetailComponent } from './components/lodging/detail/lodging.detail.component';
 import { LodgingEditComponent } from './components/lodging/edit/lodging.edit.component';
-import { ReservationRequestsComponent } from './components/reservation/list-requests/reservation-list.component';
+import { ReservationRequestsComponent } from './components/reservation/list-requests/requests-list.component';
+import { ReservationsListComponent } from './components/reservation/list/reservations-list.component';
 
 const routes: Routes = [
   {
@@ -32,11 +33,6 @@ const routes: Routes = [
     component: ProfileComponent,
     data: {roles: ['HOST','GUEST']},
     canActivate: [loginRoleGuard]
-  },
-  {
-    path: 'myReservations',
-    component: ProfileComponent,
-    canActivate: [userGuard]
   },
   {
     path: 'newLodging',
@@ -67,6 +63,12 @@ const routes: Routes = [
   {
     path: 'reservationRequests',
     component: ReservationRequestsComponent,
+    data: { roles: ['HOST', 'GUEST'] },
+    canActivate: [loginRoleGuard]
+  },
+  {
+    path: 'myReservations',
+    component: ReservationsListComponent,
     data: { roles: ['HOST', 'GUEST'] },
     canActivate: [loginRoleGuard]
   },

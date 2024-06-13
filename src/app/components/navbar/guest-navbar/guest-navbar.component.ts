@@ -10,7 +10,7 @@ import { CurrentUserService } from 'src/app/services/current-user.service';
 export class GuestNavbarComponent {
 
   profileActive: boolean = false;
-  myReservationsActive: boolean = false;
+  reservations: boolean = false;
 
   constructor(private currentUserService: CurrentUserService, private location: Location) {
 
@@ -22,7 +22,11 @@ export class GuestNavbarComponent {
         break;
       }
       case '/myLodgings': {
-        this.myReservationsActive = true;
+        this.reservations = true;
+        break;
+      }
+      case '/myReservations': {
+        this.reservations = true;
         break;
       }
       default: {

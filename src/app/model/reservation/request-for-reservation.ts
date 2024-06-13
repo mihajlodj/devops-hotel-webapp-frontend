@@ -1,6 +1,4 @@
-import { throwError } from "rxjs";
-import { Lodge } from "../lodge/lodge";
-import { User } from "../user/user";
+import { ReservationRequestStatus } from "./reservation-request-status";
 
 export class RequestForReservation {
     id: string = '';
@@ -9,11 +7,9 @@ export class RequestForReservation {
     ownerId: string = '';
     price: number = 0;
 
-    lodge: Lodge = new Lodge();
-    guest: User | null = null;
-    owner: User | null = null;
+    dateFrom: string = '';
+    dateTo: string = '';
 
-    guestCancelCount: number = 0;
-    hostAvgRating: number = 0;
-
+    numberOfGuests: number = 0;
+    status = ReservationRequestStatus.WAITING_FOR_RESPONSE;
 }

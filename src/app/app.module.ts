@@ -18,7 +18,7 @@ import { LodgingListComponent } from './components/lodging/list/lodging-list.com
 import { ProfileComponent } from './components/profile/profile.component';
 import { Page404Component } from './components/page404/page404.component';
 import { NewReservationComponent } from './components/reservation/new/reservation.new.component';
-import { ReservationRequestsComponent } from './components/reservation/list-requests/reservation-list.component';
+import { ReservationRequestsComponent } from './components/reservation/list-requests/requests-list.component';
 import { JwtInterceptor } from './interceptor';
 import { NewLodgingComponent } from './components/lodging/new/new-lodging.component';
 import { SearchComponent } from './search/search.component';
@@ -30,6 +30,7 @@ import { AlertDangerComponent } from './components/alert/danger/alert.danger.com
 import { AlertInfoComponent } from './components/alert/info/alert.info.component';
 import { AlertSuccessComponent } from './components/alert/success/alert.success.component';
 import { AlertWarningComponent } from './components/alert/warning/alert.warning.component';
+import { ReservationsListComponent } from './components/reservation/list/reservations-list.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { AlertWarningComponent } from './components/alert/warning/alert.warning.
     AlertInfoComponent,
     AlertSuccessComponent,
     AlertDangerComponent,
-    AlertWarningComponent
+    AlertWarningComponent,
+    ReservationsListComponent
   ],
   imports: [
     BrowserModule,

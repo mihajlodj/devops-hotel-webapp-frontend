@@ -9,6 +9,8 @@ import jwtDecode from 'jwt-decode';
 import { LodgeAvailabilityPeriod } from 'src/app/model/lodge/availability-period';
 import { AlertService } from 'src/app/services/alert.service';
 import { RatingService } from 'src/app/services/rating.service';
+import { User } from 'src/app/model/user/user';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-lodging-details',
@@ -22,13 +24,14 @@ export class LodgingDetailComponent {
   availabilityPeriods: LodgeAvailabilityPeriod[] = [];
   lodgeRating: number | null = null;
   hostRating: number | null = null;
+  host: User | null = null;
   
   isLoggedIn: boolean = false;
   isHost: boolean = false;
   isGuest: boolean = false;
   isOwner: boolean = false;
   constructor(private currentUserService: CurrentUserService, 
-    private lodgingService: LodgingService, 
+    private lodgingService: LodgingService, private userService: UserService,
     private route: ActivatedRoute, private router: Router,
     private alertService: AlertService, private ratingService: RatingService) {
 
@@ -51,10 +54,18 @@ export class LodgingDetailComponent {
         },
         next: (response) => {
           this.lodge = response;
-          this.setIsOwner();
+          this.isHost = this.currentUserService.checkUserRole('HOST') === true;
           this.ratingService.getAvgHostRating(this.lodge.ownerId).subscribe({
             next: (response) => {
               this.hostRating = response;
+            },
+            error: (err) => {
+              this.alertService.alertWarning(err.message);
+            }
+          });
+          this.userService.getById(this.lodge.ownerId).subscribe({
+            next: (response) => {
+              this.host = response;
             },
             error: (err) => {
               this.alertService.alertWarning(err.message);
@@ -85,13 +96,6 @@ export class LodgingDetailComponent {
       });
     }
   }
-  setIsOwner() {
-    let token = this.currentUserService.getToken();
-    let decoded: any = jwtDecode(token);
-    if (decoded.userId === this.lodge.ownerId) {
-      this.isOwner = true;
-    }
-  }
   checkRoles(){
     this.isGuest = this.currentUserService.checkUserRole(UserRole.GUEST);
     this.isHost = this.currentUserService.checkUserRole(UserRole.HOST)
@@ -102,4 +106,7 @@ export class LodgingDetailComponent {
     return Math.round((end - start) / (1000 * 60 * 60 * 24)) * ap.price;
   }
 
+  getHostFullName() {
+    return this.host ? this.host.firstName + ' ' + this.host.lastName : 'Host name not loaded'
+  }
 }
