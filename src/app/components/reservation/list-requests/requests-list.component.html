@@ -34,12 +34,15 @@
                                 <!-- Location -->
                                 <div class="d-flex justify-content-center mb-2">{{ getLodgeLocation(request) }}</div>
                                 <!-- Product reviews-->
-                                <div class="d-flex justify-content-center small text-warning mb-2">
+                                <div class="d-flex justify-content-center small mb-2">
                                     Lodge rating: {{ getLodgeRating(request) }}/5
                                 </div>
                                 <div class="d-flex justify-content-center mb-2" *ngIf="isHost">
-                                    <button class="btn btn-outline-success" (click)="accept(request)">Accept</button>
-                                    <button class="btn btn-outline-danger" (click)="decline(request)">Decline</button>
+                                    <button *ngIf="request.status === 'WAITING_FOR_RESPONSE'" class="btn btn-outline-success" (click)="accept(request)">Accept</button>
+                                    <button *ngIf="request.status === 'WAITING_FOR_RESPONSE'" class="btn btn-outline-danger ms-2" (click)="decline(request)">Decline</button>
+                                    <span *ngIf="request.status === 'CANCELED'" class="small">Guest has <b class="text-warning">canceled</b> this request</span>
+                                    <span *ngIf="request.status === 'APPROVED'" class="small">You have <b class="text-success">approved</b> this reservation</span>
+                                    <span *ngIf="request.status === 'DENIED'" class="small">You have <b class="text-danger">denied</b> this reservation</span>
                                 </div>
                             </div>
                         </div>
@@ -47,26 +50,26 @@
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                             <div class="text-center">
                                 <a class="btn btn-outline-primary mt-auto" [href]="'/lodge/' + request.lodgeId">
-                                    Lodge details
+                                    Lodge
                                 </a>
-                                <button *ngIf="isHost" class="btn btn-outline-secondary mt-auto" 
-                                    type="button" data-toggle="collapse" data-target="#collapseGuest" 
+                                <button *ngIf="isHost" class="btn btn-outline-secondary mt-auto ms-2" 
+                                    type="button" data-bs-toggle="collapse" data-bs-target="#collapseGuest" 
                                     aria-expanded="false" aria-controls="collapseGuest">
                                     See guest
                                 </button>
-                                <button *ngIf="!isHost" class="btn btn-outline-warning mt-auto" 
-                                    type="button" data-toggle="collapse" data-target="#collapseHost" 
+                                <button *ngIf="!isHost" class="btn btn-outline-warning mt-auto ms-2 my-warning-color" 
+                                    type="button" data-bs-toggle="collapse" data-bs-target="#collapseHost" 
                                     aria-expanded="false" aria-controls="collapseHost">
                                     See host
                                 </button>
                             </div>
-                            <div *ngIf="isHost" class="collapse" id="collapseGuest">
+                            <div *ngIf="isHost" class="collapse mt-2" id="collapseGuest">
                                 <div class="card card-body">
                                     <b>{{ getGuestFullName(request) }}</b> <br/>
                                     This guest has canceled {{ getGuestCancelCount(request) }} reservations in the past.
                                 </div>
                             </div>
-                            <div *ngIf="!isHost" class="collapse" id="collapseHost">
+                            <div *ngIf="!isHost" class="collapse mt-2" id="collapseHost">
                                 <div class="card card-body">
                                     <b>{{ getHostFullName(request) }}</b> <br/>
                                     Rating: {{ getHostRating(request) }}/5

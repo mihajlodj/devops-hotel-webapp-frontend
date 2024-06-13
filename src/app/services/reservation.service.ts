@@ -97,8 +97,8 @@ export class ReservationService {
       return throwError(() => new Error(message));
     }));
   }
-  getGuestCancelCount(id: string): Observable<number> {
-    return this.httpClient.get<number>(this.apiUrl + '/canceled/count/' + id).pipe(catchError(err => {
+  getGuestCancelCount(id: string): Observable<any> {
+    return this.httpClient.get<any>(this.apiUrl + '/canceled/count/' + id).pipe(catchError(err => {
       let message = 'Error: Getting guest cancelation count failed.';
       if(err.error){
         message = err.error.message;
@@ -143,7 +143,7 @@ export class ReservationService {
     }));
   }
   getAllReservationsForCancelation(): Observable<Reservation[]> {
-    return this.httpClient.get<Reservation[]>(this.apiUrl + '/all/cancellation').pipe(catchError(err => {
+    return this.httpClient.get<Reservation[]>(this.apiUrl + '/all/cancelation').pipe(catchError(err => {
       let message = 'Error: Getting reservations for cancellation failed.';
       if(err.error){
         message = err.error.message;

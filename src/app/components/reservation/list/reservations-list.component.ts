@@ -97,16 +97,16 @@ export class ReservationsListComponent implements OnInit {
   }
 
   getLodgeName(reservation: Reservation) {
-    return this.reservationsLodge[reservation.id].name;
+    return this.reservationsLodge[reservation.id]?.name;
   }
   getLodgeLocation(reservation: Reservation) {
-    return this.reservationsLodge[reservation.id].location;
+    return this.reservationsLodge[reservation.id]?.location;
   }
   getHostFullName(reservation: Reservation) {
-    return this.reservationsHost[reservation.id].firstName + ' ' + this.reservationsHost[reservation.id].lastName;
+    return this.reservationsHost[reservation.id]?.firstName + ' ' + this.reservationsHost[reservation.id]?.lastName;
   }
   getGuestFullName(reservation: Reservation) {
-    return this.reservationsGuest[reservation.id].firstName + ' ' + this.reservationsGuest[reservation.id].lastName; 
+    return this.reservationsGuest[reservation.id]?.firstName + ' ' + this.reservationsGuest[reservation.id]?.lastName; 
   }
 
   cancelReservation(reservation: Reservation) {

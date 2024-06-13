@@ -27,7 +27,6 @@ export class LodgingDetailComponent {
   host: User | null = null;
   
   isLoggedIn: boolean = false;
-  isHost: boolean = false;
   isGuest: boolean = false;
   isOwner: boolean = false;
   constructor(private currentUserService: CurrentUserService, 
@@ -40,9 +39,8 @@ export class LodgingDetailComponent {
   ngOnInit(): void {
     this.currentUserService.isLoggedIn.subscribe((loggedIn) => {
       this.isLoggedIn = loggedIn;
-      this.checkRoles();
+      this.isGuest = this.currentUserService.checkUserRole(UserRole.GUEST);
     });
-    this.checkRoles();
     let id = this.route.snapshot.paramMap.get('lodgeId');
     if (id == null) {
       this.router.navigateByUrl('/page404');
@@ -54,7 +52,7 @@ export class LodgingDetailComponent {
         },
         next: (response) => {
           this.lodge = response;
-          this.isHost = this.currentUserService.checkUserRole('HOST') === true;
+          this.isOwner = this.lodge.ownerId === this.currentUserService.getUserId();
           this.ratingService.getAvgHostRating(this.lodge.ownerId).subscribe({
             next: (response) => {
               this.hostRating = response;
@@ -95,10 +93,6 @@ export class LodgingDetailComponent {
         }
       });
     }
-  }
-  checkRoles(){
-    this.isGuest = this.currentUserService.checkUserRole(UserRole.GUEST);
-    this.isHost = this.currentUserService.checkUserRole(UserRole.HOST)
   }
   getTotalPrice(ap: LodgeAvailabilityPeriod) {
     let start = Date.parse(ap.dateFrom);

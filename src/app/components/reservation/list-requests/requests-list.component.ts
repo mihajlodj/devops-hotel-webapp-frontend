@@ -4,6 +4,7 @@ import { Observer } from 'rxjs';
 import { Lodge } from 'src/app/model/lodge/lodge';
 import { RequestForReservation } from 'src/app/model/reservation/request-for-reservation';
 import { User } from 'src/app/model/user/user';
+import { UserRole } from 'src/app/model/user/user-role';
 import { AlertService } from 'src/app/services/alert.service';
 import { CurrentUserService } from 'src/app/services/current-user.service';
 import { LodgingService } from 'src/app/services/lodging.service';
@@ -37,7 +38,7 @@ export class ReservationRequestsComponent {
     private userService: UserService, private ratingService: RatingService, private lodgeService: LodgingService) { }
 
   ngOnInit() {
-    this.isHost = this.currentUserService.checkUserRole('HOST') === true;
+    this.isHost = this.currentUserService.checkUserRole(UserRole.HOST);
     this.setReservationRequests();
   }
 
@@ -45,8 +46,8 @@ export class ReservationRequestsComponent {
     let observableOrNext: Partial<Observer<RequestForReservation[]>> = {
       next: (response) => {
         this.reservationsRequests = response;
-        this.setGuests();
-        this.setHosts();
+        this.isHost ? this.setGuests() : null;
+        this.isHost ? null : this.setHosts();
         this.setLodges();
       },
       error: (err) => {
@@ -112,10 +113,10 @@ export class ReservationRequestsComponent {
       this.ratingService.getAvgHostRating(el.ownerId).subscribe(this.observableOrNextRating(el.ownerId));
     });
   }
-  observableOrNextCancelCount(guestId: string): Partial<Observer<number>> {
+  observableOrNextCancelCount(guestId: string): Partial<Observer<any>> {
     return {
       next: (response) => {
-        this.guestCancelCount[guestId] = response;
+        this.guestCancelCount[guestId] = response.count;
       },
       error: (err) => {
         this.alertService.alertWarning(err.message);
@@ -156,27 +157,35 @@ export class ReservationRequestsComponent {
   }
 
   getFirstLodgePhoto(request: RequestForReservation): string {
-    return this.reservationsLodge[request.id].photos[0].url;
+    return this.reservationsLodge[request.id]?.photos[0].url;
   }
   getLodgeName(request: RequestForReservation): string {
-    return this.reservationsLodge[request.id].name;
+    return this.reservationsLodge[request.id]?.name;
   }
   getLodgeLocation(request: RequestForReservation): string {
-    return this.reservationsLodge[request.id].location;
+    return this.reservationsLodge[request.id]?.location;
   }
   getGuestFullName(request: RequestForReservation): string {
-    return this.reservationsGuest[request.id].firstName + ' ' + this.reservationsGuest[request.id].lastName; 
+    if (this.reservationsGuest[request.id]  !== undefined) {
+      return this.reservationsGuest[request.id].firstName + ' ' + this.reservationsGuest[request.id].lastName; 
+    } else {
+      return '';
+    }
   }
   getHostFullName(request: RequestForReservation): string {
-    return this.reservationsHost[request.id].firstName + ' ' + this.reservationsGuest[request.id].lastName; 
+    if (this.reservationsHost[request.id] !== undefined) {
+      return this.reservationsHost[request.id].firstName + ' ' + this.reservationsHost[request.id].lastName; 
+    } else {
+      return '';
+    }
   }
   getGuestCancelCount(request: RequestForReservation): number {
-    return this.guestCancelCount[request.guestId];
+    return this.guestCancelCount[request.guestId] ? this.guestCancelCount[request.guestId] : 0;
   }
-  getHostRating(request: RequestForReservation): number {
-    return this.hostAvgRating[request.ownerId];
+  getHostRating(request: RequestForReservation): any {
+    return this.hostAvgRating[request.ownerId] ? this.hostAvgRating[request.ownerId] : 'None';
   }
-  getLodgeRating(request: RequestForReservation): number {
-    return this.lodgeAvgRating[request.lodgeId];
+  getLodgeRating(request: RequestForReservation): any {
+    return this.lodgeAvgRating[request.lodgeId] ? this.lodgeAvgRating[request.lodgeId] : 'None';
   }
 }
