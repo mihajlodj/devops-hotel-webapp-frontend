@@ -22,4 +22,4 @@ jobs:
       - name: Build and push Docker image
         run: |
           docker build -t ${{ secrets.DOCKER_USERNAME }}/devops-fe:latest .
-          docker push ${{ secrets.DOCKER_USERNAME }}/devops-fe:$latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/devops-fe:latest
