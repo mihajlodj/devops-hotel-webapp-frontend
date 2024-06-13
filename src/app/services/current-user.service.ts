@@ -38,10 +38,10 @@ export class CurrentUserService {
     this.loggedInBehavior.next(true);
   }
 
-  getUserId(): number{
+  getUserId(): string {
     let token = sessionStorage.getItem("jwt");
     if(token == null){
-      return -1;
+      return '';
     }
 
     let decoded = jwtDecode<JwtPayload>(token);

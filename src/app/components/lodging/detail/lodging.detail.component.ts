@@ -7,6 +7,10 @@ import { Lodge } from 'src/app/model/lodge/lodge';
 import { environment } from 'src/environments/environment';
 import jwtDecode from 'jwt-decode';
 import { LodgeAvailabilityPeriod } from 'src/app/model/lodge/availability-period';
+import { AlertService } from 'src/app/services/alert.service';
+import { RatingService } from 'src/app/services/rating.service';
+import { User } from 'src/app/model/user/user';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-lodging-details',
@@ -18,23 +22,25 @@ export class LodgingDetailComponent {
   photoUrlPrefix: string = environment.lodgePhotoUrl;
   lodge: Lodge = new Lodge();
   availabilityPeriods: LodgeAvailabilityPeriod[] = [];
+  lodgeRating: number | null = null;
+  hostRating: number | null = null;
+  host: User | null = null;
   
   isLoggedIn: boolean = false;
-  isHost: boolean = false;
   isGuest: boolean = false;
   isOwner: boolean = false;
   constructor(private currentUserService: CurrentUserService, 
-    private lodgingService: LodgingService, 
-    private route: ActivatedRoute, private router: Router) {
+    private lodgingService: LodgingService, private userService: UserService,
+    private route: ActivatedRoute, private router: Router,
+    private alertService: AlertService, private ratingService: RatingService) {
 
   }
 
   ngOnInit(): void {
     this.currentUserService.isLoggedIn.subscribe((loggedIn) => {
       this.isLoggedIn = loggedIn;
-      this.checkRoles();
+      this.isGuest = this.currentUserService.checkUserRole(UserRole.GUEST);
     });
-    this.checkRoles();
     let id = this.route.snapshot.paramMap.get('lodgeId');
     if (id == null) {
       this.router.navigateByUrl('/page404');
@@ -46,21 +52,55 @@ export class LodgingDetailComponent {
         },
         next: (response) => {
           this.lodge = response;
-          this.setIsOwner();
+          this.isOwner = this.lodge.ownerId === this.currentUserService.getUserId();
+          this.ratingService.getAvgHostRating(this.lodge.ownerId).subscribe({
+            next: (response) => {
+              this.hostRating = response;
+            },
+            error: (err) => {
+              this.alertService.alertWarning(err.message);
+            }
+          });
+          this.userService.getById(this.lodge.ownerId).subscribe({
+            next: (response) => {
+              this.host = response;
+            },
+            error: (err) => {
+              this.alertService.alertWarning(err.message);
+            }
+          })
+        }
+      });
+      this.lodgingService.getAvalabilityPeriods(id).subscribe({
+        next: (response) => {
+          this.availabilityPeriods = response;
+          this.availabilityPeriods.forEach(e => {
+            e.dateFrom = e.dateFrom.slice(0, 10);
+            e.dateTo = e.dateTo.slice(0, 10);
+          })
+        },
+        error: (err) => {
+          console.log(err);
+          this.alertService.alertWarning(err.message);
+        }
+      });
+      this.ratingService.getAvgLodgeRating(id).subscribe({
+        next: (response) => {
+          this.lodgeRating = response;
+        },
+        error: (err) => {
+          this.alertService.alertWarning(err.message);
         }
       });
     }
   }
-  setIsOwner() {
-    let token = this.currentUserService.getToken();
-    let decoded: any = jwtDecode(token);
-    if (decoded.userId === this.lodge.ownerId) {
-      this.isOwner = true;
-    }
-  }
-  checkRoles(){
-    this.isGuest = this.currentUserService.checkUserRole(UserRole.GUEST);
-    this.isHost = this.currentUserService.checkUserRole(UserRole.HOST)
+  getTotalPrice(ap: LodgeAvailabilityPeriod) {
+    let start = Date.parse(ap.dateFrom);
+    let end = Date.parse(ap.dateTo);
+    return Math.round((end - start) / (1000 * 60 * 60 * 24)) * ap.price;
   }
 
+  getHostFullName() {
+    return this.host ? this.host.firstName + ' ' + this.host.lastName : 'Host name not loaded'
+  }
 }

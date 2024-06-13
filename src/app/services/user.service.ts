@@ -6,6 +6,7 @@ import {catchError, Observable, throwError} from "rxjs";
 import {LoginResponse} from "../model/login/login-response";
 import {ExceptionMessages} from "../model/exception-messages";
 import {UserRole} from "../model/user/user-role";
+import { User } from '../model/user/user';
 
 
 @Injectable({
@@ -14,6 +15,7 @@ import {UserRole} from "../model/user/user-role";
 export class UserService {
 
   private authUrl: string = environment.userService + '/auth';
+  private userApiUrl: string = environment.userApiUrl;
 
   private headers = new HttpHeaders({
     'Authorization': 'Bearer ' + sessionStorage.getItem("jwt")
@@ -68,5 +70,14 @@ export class UserService {
       );
   }
 
+  getById(id: string): Observable<User> {
+    return this.httpClient.get<User>(this.userApiUrl + '/' + id).pipe(catchError((err) => {
+      let message = 'Error: Getting user failed';
+      if (err.error) {
+        message = err.error.message;
+      }
+      return throwError(() => new Error(message));
+    }));
+  }
 
 }

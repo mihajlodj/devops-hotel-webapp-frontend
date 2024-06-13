@@ -1,0 +1,12 @@
+<div *ngFor="let alert of alertService.alerts">
+
+    <ngb-toast
+    [class]="alert.classname"
+    style="border:0px; box-shadow: none;"
+    [autohide]="true"
+    [delay]="alert.delay || 5000"
+    (hidden)="alertService.remove(alert)"
+    >
+    <ng-template [ngTemplateOutlet]="alert.template"></ng-template>
+    </ngb-toast>
+</div>

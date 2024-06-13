@@ -4,22 +4,43 @@
     <div class="row gx-4 gx-lg-5 align-items-center">
       <div class="col-md-5">
         <app-carousel [photos]="lodge.photos"></app-carousel>
+        <div class="text-center fs-5">
+          <span>Lodge rating: {{ lodgeRating ? lodgeRating + '/5' : 'Not ratings yet'}}</span> <br>
+          <span>Host: {{ getHostFullName() }}</span> <br>
+          <span>Rating: {{ hostRating ? hostRating + '/5' : 'Not ratings yet'}}</span>
+        </div>
       </div>
       <div class="col-md-7">
         <h1 class="display-5 fw-bolder">{{ this.lodge.name }}</h1>
         <div class="fs-5"><span>{{ this.lodge.location }}</span></div>
         <div class="fs-5"><span>Minimum guests: {{ this.lodge.minimalGuestNumber }}</span></div>
         <div class="fs-5"><span>Maximum guests: {{ this.lodge.maximalGuestNumber }}</span></div>
-        <p class="fs-5 mb-1">Amenities: {{this.lodge.amenities.join(';')}}</p>
+        <div class="fs-5">Amenities:</div>
+        <span *ngIf="this.lodge.amenities.length === 0">None</span>
+        <ul class="fs-5" >
+          <li *ngFor="let amenity of this.lodge.amenities">{{ amenity }}</li>
+        </ul>
         <p *ngIf="this.availabilityPeriods.length === 0" class="fs-5 lead">
           No available dates for reservation.
         </p>
-        <p *ngFor="let ap of this.availabilityPeriods" class="fs-5">
-          {{ ap.dateFrom.slice(0, 9) }} to {{ ap.dateTo.slice(0, 9) }}, with price of {{ ap.price }} {{ ap.priceType == 'PER_GUEST' ? 'per guest' : 'per lodge' }}
-        </p>
+        <span class="fs-5">Available periods for reservation:</span>
+        <span *ngIf="this.availabilityPeriods.length === 0"> None defined yet.</span>
+        <ul *ngFor="let ap of this.availabilityPeriods" class="fs-5">
+          <li>{{ ap.dateFrom.slice(0, 10) }} to {{ ap.dateTo.slice(0, 10) }}, with price of ${{ ap.price }} {{ ap.priceType == 'PER_GUEST' ? 'per guest' : 'per lodge' }}, total price being ${{getTotalPrice(ap)}}</li>
+        </ul>
         <div class="d-flex">
-          <button *ngIf="this.isGuest" [disabled]="this.availabilityPeriods.length === 0" class="btn btn-outline-success flex-shrink-0" type="button"><i class="bi-cart-fill me-1"></i>Make reservation</button>
           <a *ngIf="this.isOwner" class="btn btn-outline-primary ms-2" routerLink="edit">Edit</a>
+          <button *ngIf="this.isGuest" 
+          [disabled]="this.availabilityPeriods.length === 0" 
+          class="btn btn-outline-success flex-shrink-0" 
+          type="button"
+          data-bs-toggle="collapse" data-bs-target="#collapseExample" 
+          aria-expanded="false" aria-controls="collapseExample"><i class="bi-cart-fill me-1"></i>Make reservation</button>
+        </div>
+        <div class="collapse mt-2" id="collapseExample">
+          <div class="card card-body">
+            <app-new-reservation [lodge]="lodge"></app-new-reservation>
+          </div>
         </div>
       </div>
     </div>

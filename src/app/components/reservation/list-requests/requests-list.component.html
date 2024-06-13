@@ -1,0 +1,98 @@
+<ng-container *ngIf="this.reservationsRequests.length > 0; else noreservationsRequests">
+    <!-- Header-->
+    <header class="bg-primary py-1" *ngIf="isHost; else isGuest">
+        <div class="container px-4 px-lg-5 my-1">
+                <div class="text-center text-white">
+                    <h1 class="display-4 fw-bolder">See who requested your lodges!</h1>
+                <p class="lead fw-normal text-white-50 mb-0">You can accept or decline, if two request dates overlap, accepting one will automatically decline the other</p>
+            </div>
+        </div>
+    </header>
+    <ng-template #isGuest>
+        <header class="bg-primary py-1">
+            <div class="container px-4 px-lg-5 my-1">
+                    <div class="text-center text-white">
+                        <h1 class="display-4 fw-bolder">See your pending reservation requests!</h1>
+                    <p class="lead fw-normal text-white-50 mb-0">You can check the status to see if host accepted or declined your offer</p>
+                </div>
+            </div>
+        </header>
+    </ng-template>
+    <!-- Section-->
+    <section class="py-5">
+        <div class="container px-4 px-lg-5 mt-5">
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                <div class="col mb-5" *ngFor="let request of this.reservationsRequests">
+                    <div class="card h-100">
+                        <!-- Product image--><img class="card-img-top" [src]="this.photoUrlPrefix + getFirstLodgePhoto(request)"
+                            alt="...">
+                        <!-- Product details-->
+                        <div class="card-body p-4">
+                            <div class="text-center">
+                                <!-- Product name-->
+                                <h5 class="fw-bolder">{{ getLodgeName(request) }}</h5>
+                                <!-- Location -->
+                                <div class="d-flex justify-content-center mb-2">{{ getLodgeLocation(request) }}</div>
+                                <!-- Product reviews-->
+                                <div class="d-flex justify-content-center small mb-2">
+                                    Lodge rating: {{ getLodgeRating(request) }}/5
+                                </div>
+                                <div class="d-flex justify-content-center mb-2" *ngIf="isHost">
+                                    <button *ngIf="request.status === 'WAITING_FOR_RESPONSE'" class="btn btn-outline-success" (click)="accept(request)">Accept</button>
+                                    <button *ngIf="request.status === 'WAITING_FOR_RESPONSE'" class="btn btn-outline-danger ms-2" (click)="decline(request)">Decline</button>
+                                    <span *ngIf="request.status === 'CANCELED'" class="small">Guest has <b class="text-warning">canceled</b> this request</span>
+                                    <span *ngIf="request.status === 'APPROVED'" class="small">You have <b class="text-success">approved</b> this reservation</span>
+                                    <span *ngIf="request.status === 'DENIED'" class="small">You have <b class="text-danger">denied</b> this reservation</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Product actions-->
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <div class="text-center">
+                                <a class="btn btn-outline-primary mt-auto" [href]="'/lodge/' + request.lodgeId">
+                                    Lodge
+                                </a>
+                                <button *ngIf="isHost" class="btn btn-outline-secondary mt-auto ms-2" 
+                                    type="button" data-bs-toggle="collapse" data-bs-target="#collapseGuest" 
+                                    aria-expanded="false" aria-controls="collapseGuest">
+                                    See guest
+                                </button>
+                                <button *ngIf="!isHost" class="btn btn-outline-warning mt-auto ms-2 my-warning-color" 
+                                    type="button" data-bs-toggle="collapse" data-bs-target="#collapseHost" 
+                                    aria-expanded="false" aria-controls="collapseHost">
+                                    See host
+                                </button>
+                            </div>
+                            <div *ngIf="isHost" class="collapse mt-2" id="collapseGuest">
+                                <div class="card card-body">
+                                    <b>{{ getGuestFullName(request) }}</b> <br/>
+                                    This guest has canceled {{ getGuestCancelCount(request) }} reservations in the past.
+                                </div>
+                            </div>
+                            <div *ngIf="!isHost" class="collapse mt-2" id="collapseHost">
+                                <div class="card card-body">
+                                    <b>{{ getHostFullName(request) }}</b> <br/>
+                                    Rating: {{ getHostRating(request) }}/5
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</ng-container>
+<ng-template #noreservationsRequests>
+    <!-- Header-->
+    <header class="bg-primary py-1">
+        <div class="container px-4 px-lg-5 my-1">
+            <div class="text-center text-white">
+                <h1 class="display-4 fw-bolder">No reservation requests found :&lpar;</h1>
+                <p class="lead fw-normal text-white-50 mb-0">Please try again later</p>
+            </div>
+        </div>
+    </header>
+    <section>
+        
+    </section>
+</ng-template>

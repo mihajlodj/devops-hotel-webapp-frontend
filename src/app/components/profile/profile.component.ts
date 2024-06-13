@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/model/user/user';
+import { AlertService } from 'src/app/services/alert.service';
 import { CurrentUserService } from 'src/app/services/current-user.service';
 
 @Component({
@@ -13,7 +14,7 @@ export class ProfileComponent {
   oldPassword: string = '';
   newPassword: string = '';
   repeatNewPassword: string = '';
-  constructor(private route: ActivatedRoute, private currentUserService: CurrentUserService) {
+  constructor(private route: ActivatedRoute, private currentUserService: CurrentUserService, private alertService: AlertService) {
 
   }
 
@@ -78,10 +79,10 @@ export class ProfileComponent {
 
           },
           error: (error) => {
-            alert(error.message);
+            this.alertService.alertDanger(error.message);
           },
           next: () => {
-            alert('Profile successfully updated!');
+            this.alertService.alertSuccess('Profile successfully updated!');
             this.currentUserService.logout();
           }
         });
@@ -97,10 +98,10 @@ export class ProfileComponent {
 
           },
           error: (error) => {
-            alert(error.message);
+            this.alertService.alertDanger(error.message);
           },
           next: () => {
-            alert('Profile deleted successfully');
+            this.alertService.alertSuccess('Profile deleted successfully');
             this.currentUserService.logout();
           }
         });
@@ -114,10 +115,10 @@ export class ProfileComponent {
         this.currentUserService.changeMyPassword(this.oldPassword, this.newPassword, this.repeatNewPassword).subscribe({
           complete: () => { },
           error: (error) => {
-            alert(error.message);
+            this.alertService.alertDanger(error.message);
           },
           next: () => {
-            alert('Password updated successfully.');
+            this.alertService.alertSuccess('Password updated successfully.');
             this.currentUserService.logout();
           }
         });
@@ -127,7 +128,7 @@ export class ProfileComponent {
   switchNotifications() {
     this.currentUserService.toggleMyNotifications().subscribe({
       error: (err) => {
-        alert(err.message);
+        this.alertService.alertDanger(err.message);
       },
       next: () => {
         if (this.userProfile) {

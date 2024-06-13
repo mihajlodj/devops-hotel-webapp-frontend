@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Lodge } from 'src/app/model/lodge/lodge';
 import { RequestForReservationApprovalType } from 'src/app/model/lodge/request-for-approval';
+import { AlertService } from 'src/app/services/alert.service';
 import { LodgingService } from 'src/app/services/lodging.service';
 
 @Component({
@@ -21,7 +22,7 @@ export class NewLodgingComponent {
   minimalGuestNumber: number = 1;
   maximalGuestNumber: number = 1;
   approvalType: RequestForReservationApprovalType = RequestForReservationApprovalType.AUTOMATIC;
-  constructor(private lodgingService: LodgingService, private router: Router) {
+  constructor(private lodgingService: LodgingService, private router: Router, private alertService: AlertService) {
     this.urls = [];
   }
   uploadImage(event: any) {
@@ -29,7 +30,7 @@ export class NewLodgingComponent {
     this.files.push(photos[0]);
     const mimeType = photos[0].type;
     if (mimeType.match(/image\/*/) == null) {
-        alert("Only images are supported.");
+        this.alertService.alertInfo("Only images are supported.");
         return;
     }
 
@@ -98,7 +99,7 @@ export class NewLodgingComponent {
 
   create() {
     if (this.minimalGuestNumber > this.maximalGuestNumber) {
-      alert('Lowest number of guests can\'t be higher than highest');
+      this.alertService.alertInfo('Lowest number of guests can\'t be higher than highest');
       return;
     }
     let newLodge = {
@@ -117,12 +118,12 @@ export class NewLodgingComponent {
     }
     this.lodgingService.create(formData).subscribe({
       next: () => {
-        alert("Lodge created successfully.");
+        this.alertService.alertSuccess("Lodge created successfully.");
         this.router.navigate(['']);
       },
       error: (err) => {
         console.log(err);
-        alert(err.message);
+        this.alertService.alertDanger(err.message);
       }
     })
   }

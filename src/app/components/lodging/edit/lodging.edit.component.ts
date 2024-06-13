@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { AsyncValidator } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import jwtDecode from 'jwt-decode';
 import { LodgeAvailabilityPeriod } from 'src/app/model/lodge/availability-period';
 import { Lodge } from 'src/app/model/lodge/lodge';
 import { PriceType } from 'src/app/model/lodge/price-type';
 import { UserRole } from 'src/app/model/user/user-role';
+import { AlertService } from 'src/app/services/alert.service';
 import { CurrentUserService } from 'src/app/services/current-user.service';
 import { LodgingService } from 'src/app/services/lodging.service';
 import { environment } from 'src/environments/environment';
@@ -31,7 +31,8 @@ export class LodgingEditComponent {
   isOwner: boolean = false;
   constructor(private currentUserService: CurrentUserService, 
     private lodgingService: LodgingService, 
-    private route: ActivatedRoute, private router: Router) {
+    private route: ActivatedRoute, private router: Router,
+    public alertService: AlertService) {
 
   }
 
@@ -66,11 +67,11 @@ export class LodgingEditComponent {
           this.availabilityPeriods.forEach(e => {
             e.dateFrom = e.dateFrom.slice(0, 10);
             e.dateTo = e.dateTo.slice(0, 10);
-          })
+          });
         },
         error: (err) => {
           console.log(err);
-          alert(err.message);
+          this.alertService.alertDanger(err.message);
         }
       });
     }
@@ -96,15 +97,20 @@ export class LodgingEditComponent {
     }
   }
 
-  observerOrNext(alertMessage: string) {
+  observerOrNext(message: string) {
     return {
-      next: (_: any) => {
-        alert(alertMessage);
-        location.reload();
+      next: (response: any) => {
+        this.alertService.alertSuccess(message);
+        if (response) {
+          response = response as LodgeAvailabilityPeriod;
+          response.dateFrom = response.dateFrom.slice(0, 10);
+          response.dateTo = response.dateTo.slice(0, 10);
+          this.availabilityPeriods.push(response);
+        }
       },
       error: (err: any) => {
         console.log(err);
-        alert(err.message);
+        this.alertService.alertDanger(err.message);
       }
     }
   }
@@ -119,22 +125,18 @@ export class LodgingEditComponent {
 
   addPeriod() {
     this.newAvailabilityPeriod.lodgeId = this.lodge.id;
-    this.newAvailabilityPeriod.dateFrom += ' 00:00:00.0000000';
-    this.newAvailabilityPeriod.dateTo   += ' 00:00:00.0000000';
     this.lodgingService.createAvailabilityPeriod(this.newAvailabilityPeriod).subscribe(
-      this.observerOrNext('Availability period added'));
+      this.observerOrNext('Period added successfuly!'));
   }
 
   deleteAPeriod(id: string) {
     this.lodgingService.deleteAvailabilityPeriod(id).subscribe(
-      this.observerOrNext('Availability period deleted')
+      this.observerOrNext('Period deleted successfuly')
     );
   }
   saveAPeriod(aPeriod: LodgeAvailabilityPeriod) {
-    aPeriod.dateFrom += ' 00:00:00.0000000';
-    aPeriod.dateTo   += ' 00:00:00.0000000';
     this.lodgingService.updateAvailabilityPeriod(aPeriod.id, aPeriod).subscribe(
-      this.observerOrNext('Availability period updated')
+      this.observerOrNext('Period updated successfuly')
     )
   }
 }

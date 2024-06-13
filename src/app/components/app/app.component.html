@@ -13,5 +13,19 @@
     </ng-template>
 </header>
 
-
 <router-outlet></router-outlet>
+
+
+<ng-template #successAlert>
+  <app-alert-success [message]="alertMessage"></app-alert-success>
+</ng-template>
+<ng-template #dangerAlert>
+  <app-alert-danger [message]="alertMessage"></app-alert-danger>
+</ng-template>
+<ng-template #warningAlert>
+  <app-alert-warning [message]="alertMessage"></app-alert-warning>
+</ng-template>
+<ng-template #infoAlert>
+  <app-alert-info [message]="alertMessage"></app-alert-info>
+</ng-template>
+<app-alert-container></app-alert-container>
