@@ -46,8 +46,8 @@ export class LodgingDetailComponent {
       this.router.navigateByUrl('/page404');
     } else {
       this.lodgingService.get(id).subscribe({
-        error: (error: any) => {
-          console.log(error.message);
+        error: (error) => {
+          this.alertService.alertDanger(error.message);
           this.router.navigateByUrl('/page404');
         },
         next: (response) => {
@@ -80,7 +80,6 @@ export class LodgingDetailComponent {
           })
         },
         error: (err) => {
-          console.log(err);
           this.alertService.alertWarning(err.message);
         }
       });

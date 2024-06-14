@@ -26,7 +26,6 @@ export class NewReservationComponent {
         this.router.navigate(['']);
       },
       error: (err) => {
-        console.log(err);
         this.alertService.alertDanger(err.message);
       }
     });

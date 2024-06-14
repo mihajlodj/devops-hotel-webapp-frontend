@@ -31,6 +31,8 @@ import { AlertInfoComponent } from './components/alert/info/alert.info.component
 import { AlertSuccessComponent } from './components/alert/success/alert.success.component';
 import { AlertWarningComponent } from './components/alert/warning/alert.warning.component';
 import { ReservationsListComponent } from './components/reservation/list/reservations-list.component';
+import { RatingNewUpdateComponent } from './components/rating/new-update-delete/rating-new-update.component';
+import { RatingListComponent } from './components/rating/list/rating-list.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +58,9 @@ import { ReservationsListComponent } from './components/reservation/list/reserva
     AlertSuccessComponent,
     AlertDangerComponent,
     AlertWarningComponent,
-    ReservationsListComponent
+    ReservationsListComponent,
+    RatingNewUpdateComponent,
+    RatingListComponent
   ],
   imports: [
     BrowserModule,

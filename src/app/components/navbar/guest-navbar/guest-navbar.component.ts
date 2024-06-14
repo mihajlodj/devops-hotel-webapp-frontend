@@ -11,6 +11,7 @@ export class GuestNavbarComponent {
 
   profileActive: boolean = false;
   reservations: boolean = false;
+  ratingActive: boolean = false;
 
   constructor(private currentUserService: CurrentUserService, private location: Location) {
 
@@ -27,6 +28,10 @@ export class GuestNavbarComponent {
       }
       case '/myReservations': {
         this.reservations = true;
+        break;
+      }
+      case '/myRatings': {
+        this.ratingActive = true;
         break;
       }
       default: {

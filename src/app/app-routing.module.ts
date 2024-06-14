@@ -12,6 +12,7 @@ import { LodgingDetailComponent } from './components/lodging/detail/lodging.deta
 import { LodgingEditComponent } from './components/lodging/edit/lodging.edit.component';
 import { ReservationRequestsComponent } from './components/reservation/list-requests/requests-list.component';
 import { ReservationsListComponent } from './components/reservation/list/reservations-list.component';
+import { RatingListComponent } from './components/rating/list/rating-list.component';
 
 const routes: Routes = [
   {
@@ -70,6 +71,12 @@ const routes: Routes = [
     path: 'myReservations',
     component: ReservationsListComponent,
     data: { roles: ['HOST', 'GUEST'] },
+    canActivate: [loginRoleGuard]
+  },
+  {
+    path: 'myRatings',
+    component: RatingListComponent,
+    data: { roles: ['GUEST'] },
     canActivate: [loginRoleGuard]
   },
   {

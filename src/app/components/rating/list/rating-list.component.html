@@ -1,0 +1,54 @@
+<h1 class="ms-2">Lodge ratings</h1>
+<h3 class="ms-2">Average {{ averageLodgeRatingGiven() }}</h3>
+<hr>
+<table class="table table-striped fs-5">
+    <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Lodge name</th>
+          <th scope="col">Location</th>
+          <th scope="col">Rating</th>
+          <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let rating of lodgesRatings; index as i">
+          <th scope="row">{{ i + 1}}</th>
+          <td>{{ this.lodges[rating.id].name }}</td>
+          <td>{{ lodges[rating.id].location }}</td>
+          <td>{{ rating.rating }}</td>
+          <td>
+            <div class="input-group">
+                <button type="button" class="btn btn-outline-danger" (click)="removeLodgeRating(rating.id)">Remove</button>
+                <a class="btn btn-outline-primary" [href]="'/lodge/'+ rating.lodgeId">Change</a>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+</table>
+<h1 class="mt-3 ms-2">Host ratings</h1>
+<h3 class="ms-2">Average {{ averageHostRatingGiven() }}</h3>
+<hr>
+<table class="table table-striped fs-5">
+    <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Host name</th>
+          <th scope="col">Rating</th>
+          <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let rating of hostsRatings; index as i">
+          <th scope="row">{{ i + 1}}</th>
+          <td>{{ ratedHosts[rating.id].firstName + ' ' + ratedHosts[rating.id].lastName }}</td>
+          <td>{{ rating.rating }}</td>
+          <td>
+            <div class="input-group">
+                <button type="button" class="btn btn-outline-danger">Remove</button>
+                <a class="btn btn-outline-primary">Change</a>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+</table>
