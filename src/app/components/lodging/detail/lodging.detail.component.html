@@ -7,7 +7,10 @@
         <div class="text-center fs-5">
           <span>Lodge rating: {{ lodgeRating ? lodgeRating + '/5' : 'Not ratings yet'}}</span> <br>
           <span>Host: {{ getHostFullName() }}</span> <br>
-          <span>Rating: {{ hostRating ? hostRating + '/5' : 'Not ratings yet'}}</span>
+          <span>Host rating: {{ hostRating ? hostRating + '/5' : 'Not ratings yet'}}</span> <br>
+          <div *ngIf="isGuest">
+            <app-rating-new-update></app-rating-new-update>
+          </div>
         </div>
       </div>
       <div class="col-md-7">

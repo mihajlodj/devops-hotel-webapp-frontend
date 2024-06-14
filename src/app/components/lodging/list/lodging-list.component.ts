@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Lodge } from 'src/app/model/lodge/lodge';
 import { AlertService } from 'src/app/services/alert.service';
 import { LodgingService } from 'src/app/services/lodging.service';
+import { RatingService } from 'src/app/services/rating.service';
 import { SearchService } from 'src/app/services/search.service';
 import { environment } from 'src/environments/environment';
 
@@ -13,8 +14,10 @@ import { environment } from 'src/environments/environment';
 })
 export class LodgingListComponent {
   photoUrlPrefix: string = environment.lodgePhotoUrl;
-  lodges: Lodge[] = []
-  constructor(private lodgingService: LodgingService, 
+  lodges: Lodge[] = [];
+  lodgeRatings: { [lodgeId: string]: number } = {}
+  hostRatings: { [ownerId: string]: number } = {}
+  constructor(private lodgingService: LodgingService, private ratingService: RatingService,
     public router: Router, private searchService: SearchService, private alertService: AlertService) {
 
   }
@@ -27,6 +30,14 @@ export class LodgingListComponent {
       },
       next: (responseLodges: Lodge[]) => {
         this.lodges = responseLodges;
+        this.lodges.forEach(el => {
+          this.ratingService.getAvgLodgeRating(el.id).subscribe({
+            next: (response) => this.lodgeRatings[el.id] = response
+          });
+          this.ratingService.getAvgHostRating(el.ownerId).subscribe({
+            next: (response) => this.hostRatings[el.ownerId] = response
+          });
+        });
       }
     };
     if (url === '/' ) {

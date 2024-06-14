@@ -23,6 +23,8 @@
                                 <h5 class="fw-bolder">{{ lodge.name }}</h5>
                                 <!-- Location -->
                                 <div class="d-flex justify-content-center mb-2">{{lodge.location}}</div>
+                                <div class="d-flex justify-content-center mb-2">{{ lodgeRatings[lodge.id] ? 'Rating: ' + lodgeRatings[lodge.id] + '/5' : 'No lodge ratings yet' }}</div>
+                                <div class="d-flex justify-content-center mb-2">{{ hostRatings[lodge.ownerId] ? 'Host rating: ' + hostRatings[lodge.ownerId] + '/5' : 'Host has no ratings yet' }}</div>
                             </div>
                         </div>
                         <!-- Product actions-->

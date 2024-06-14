@@ -17,7 +17,7 @@
   <div class="input-group">
     <input #dpdateFrom class="form-control" placeholder="yyyy-mm-dd" name="dpdateFrom"
       [value]="formatter.format(dateFrom)" (input)="dateFrom = validateInput(dateFrom, dpdateFrom.value)" />
-    <button class="btn btn-secondary bi bi-calendar3" style="border-radius: 0px;" (click)="datepicker.toggle()" type="button"></button>
+    <button class="btn btn-secondary bi bi-calendar3" style="z-index: 0;border-radius: 0px;" (click)="datepicker.toggle()" type="button"></button>
   </div>
   <span class="input-group-text" style="border-radius:0!important;" id="basic-addon1">to</span>
   <div class="input-group">
