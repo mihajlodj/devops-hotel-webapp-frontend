@@ -1,4 +1,5 @@
-<h1 class="ms-2">Lodge ratings</h1>
+<div class="my-bg-white">
+ <h1 class="ms-2">Lodge ratings</h1>
 <h3 class="ms-2">Average {{ averageLodgeRatingGiven() }}</h3>
 <hr>
 <table class="table table-striped fs-5">
@@ -8,6 +9,7 @@
           <th scope="col">Lodge name</th>
           <th scope="col">Location</th>
           <th scope="col">Rating</th>
+          <th scope="col">Created</th>
           <th scope="col">Action</th>
         </tr>
     </thead>
@@ -17,6 +19,7 @@
           <td>{{ this.lodges[rating.id].name }}</td>
           <td>{{ lodges[rating.id].location }}</td>
           <td>{{ rating.rating }}</td>
+          <td>{{ rating.datetime.slice(0, 10) }}</td>
           <td>
             <div class="input-group">
                 <button type="button" class="btn btn-outline-danger" (click)="removeLodgeRating(rating.id)">Remove</button>
@@ -35,6 +38,7 @@
           <th scope="col">#</th>
           <th scope="col">Host name</th>
           <th scope="col">Rating</th>
+          <th scope="col">Created</th>
           <th scope="col">Action</th>
         </tr>
     </thead>
@@ -43,12 +47,14 @@
           <th scope="row">{{ i + 1}}</th>
           <td>{{ ratedHosts[rating.id].firstName + ' ' + ratedHosts[rating.id].lastName }}</td>
           <td>{{ rating.rating }}</td>
+          <td>{{ rating.datetime.slice(0, 10) }}</td>
           <td>
             <div class="input-group">
-                <button type="button" class="btn btn-outline-danger">Remove</button>
+                <button type="button" class="btn btn-outline-danger" (click)="removeHostRating(rating.id)">Remove</button>
                 <a class="btn btn-outline-primary">Change</a>
             </div>
           </td>
         </tr>
     </tbody>
-</table>
+</table> 
+</div>

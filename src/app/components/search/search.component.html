@@ -1,35 +1,48 @@
-<form class="d-flex">
 
-  <div class="dp-hidden position-absolute">
-    <div class="input-group">
-      <input name="datepicker" class="form-control" ngbDatepicker #datepicker="ngbDatepicker" [autoClose]="'outside'"
-        (dateSelect)="onDateSelection($event)" [displayMonths]="2" [dayTemplate]="t" outsideDays="hidden"
-        [startDate]="dateFrom!" tabindex="-1" />
-      <ng-template #t let-date let-focused="focused">
-        <span class="custom-day" [class.focused]="focused" [class.range]="isRange(date)"
-          [class.faded]="isHovered(date) || isInside(date)" (mouseenter)="hoveredDate = date"
-          (mouseleave)="hoveredDate = null">
-          {{ date.day }}
-        </span>
-      </ng-template>
+<div class="btn-group dropstart">
+  <button class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" type="submit">Search</button>
+<div class="dropdown-menu" (click)="$event.stopPropagation()" style="min-width:800%;">
+  <form class="px-4 py-3">
+
+    <div class="dp-hidden position-absolute">
+      <div class="input-group">
+        <input name="datepicker"  class="form-control" ngbDatepicker #datepicker="ngbDatepicker" [autoClose]="'outside'"
+          (dateSelect)="onDateSelection($event)" [displayMonths]="2" [dayTemplate]="t" outsideDays="hidden"
+          [startDate]="dateFrom!" tabindex="-1" />
+        <ng-template #t let-date let-focused="focused">
+          <span class="custom-day" [class.focused]="focused" [class.range]="isRange(date)"
+            [class.faded]="isHovered(date) || isInside(date)" (mouseenter)="hoveredDate = date"
+            (mouseleave)="hoveredDate = null">
+            {{ date.day }}
+          </span>
+        </ng-template>
+      </div>
     </div>
-  </div>
-  <div class="input-group">
-    <input #dpdateFrom class="form-control" placeholder="yyyy-mm-dd" name="dpdateFrom"
-      [value]="formatter.format(dateFrom)" (input)="dateFrom = validateInput(dateFrom, dpdateFrom.value)" />
-    <button class="btn btn-secondary bi bi-calendar3" style="z-index: 0;border-radius: 0px;" (click)="datepicker.toggle()" type="button"></button>
-  </div>
-  <span class="input-group-text" style="border-radius:0!important;" id="basic-addon1">to</span>
-  <div class="input-group">
-    <input #dpdateTo class="form-control" placeholder="yyyy-mm-dd" name="dpdateTo" [value]="formatter.format(dateTo)"
-      (input)="dateTo = validateInput(dateTo, dpdateTo.value)" style="border-top-left-radius:0px;border-bottom-left-radius: 0px;" />
-    <button class="btn btn-secondary bi bi-calendar3" (click)="datepicker.toggle()" type="button"></button>
-  </div>
+    <div class="d-flex flex-row">
+      <div class="input-group">
+        <input #dpdateFrom class="form-control" placeholder="yyyy-mm-dd" name="dpdateFrom"
+          [value]="formatter.format(dateFrom)" (input)="dateFrom = validateInput(dateFrom, dpdateFrom.value)" />
+        <button class="btn btn-primary bi bi-calendar3" style="z-index: 0;border-radius: 0px;" (click)="datepicker.toggle()" type="button"></button>
+      </div>
+      <span class="input-group-text" style="border-radius:0!important;" id="basic-addon1">to</span>
+      <div class="input-group">
+        <input #dpdateTo class="form-control" placeholder="yyyy-mm-dd" name="dpdateTo" [value]="formatter.format(dateTo)"
+          (input)="dateTo = validateInput(dateTo, dpdateTo.value)" style="border-top-left-radius:0px;border-bottom-left-radius: 0px;" />
+        <button class="btn btn-primary bi bi-calendar3" (click)="datepicker.toggle()" type="button"></button>
+      </div>
+    </div>
+    
+    <div class="d-flex flex-row mt-2">
+      <input class="form-control me-2" type="number" name="guestNumber" [(ngModel)]="this.guestNumber"
+        placeholder="Number of guests" aria-label="Guests">
+      <input class="form-control" type="text" name="location" [(ngModel)]="this.location" placeholder="Location"
+        aria-label="Location">
+    </div>
+    <div class="text-center mt-2">
+      <button class="btn btn-outline-success" type="submit" (click)="this.search()"><i class="bi bi-search"></i></button>
+    </div>
+  </form>
+</div>
+</div>
 
-  <input class="form-control me-2 ms-2" type="number" name="guestNumber" [(ngModel)]="this.guestNumber"
-    placeholder="Number of guests" aria-label="Guests">
-  <input class="form-control me-2" type="text" name="location" [(ngModel)]="this.location" placeholder="Location"
-    aria-label="Location">
-  <button class="btn btn-success" type="submit" (click)="this.search()">Search</button>
 
-</form>
