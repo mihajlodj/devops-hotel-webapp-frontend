@@ -1,6 +1,5 @@
 import {Component, OnInit, TemplateRef, ViewChild, AfterViewInit} from '@angular/core';
 import {CurrentUserService} from "../../services/current-user.service";
-import {Router} from "@angular/router";
 import {UserRole} from "../../model/user/user-role";
 import { AlertService } from 'src/app/services/alert.service';
 

@@ -1,5 +1,30 @@
 @import 'bootstrap-icons/font/bootstrap-icons.css';
-
+.my-bg-white {
+  background-color: rgba(255,255,255,0.8);
+}
+.card {
+  background-color: rgba(255,255,255,0.8)!important;
+}
+.card:hover {
+  background-color: rgba(255,255,255,1)!important;
+  box-shadow:  0 8px 16px 0 rgba(0,0,0,0.2);
+  opacity: 1;
+}
+.cat {
+  border-radius:10px;width:10%;height:20%;z-index:10;position:fixed;
+}
+.cat-left {
+  bottom:0;left:0;
+}
+.cat-right {
+  bottom:0;right:0;
+}
+.cat:hover {
+  width:200px;
+  height:200px;
+  box-shadow:  0 8px 16px 0 rgba(0,0,0,0.2);
+  opacity: 1;
+}
 :root {
   --devops-red: #a40000;
   --devops-green: #009d02;
