@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/model/user/user';
+import { UserRole } from 'src/app/model/user/user-role';
 import { AlertService } from 'src/app/services/alert.service';
 import { CurrentUserService } from 'src/app/services/current-user.service';
+import { RatingService } from 'src/app/services/rating.service';
 
 @Component({
   selector: 'app-profile',
@@ -14,14 +16,35 @@ export class ProfileComponent {
   oldPassword: string = '';
   newPassword: string = '';
   repeatNewPassword: string = '';
-  constructor(private route: ActivatedRoute, private currentUserService: CurrentUserService, private alertService: AlertService) {
+
+  isHost: boolean = false;
+  hostRating: number | null = null;
+  constructor(private route: ActivatedRoute, private currentUserService: CurrentUserService, 
+    private alertService: AlertService, private ratingService: RatingService) {
 
   }
 
   ngOnInit(): void {
-    this.currentUserService.me().subscribe((user) => {
-      this.userProfile = user;
-    });
+    this.currentUserService.me().subscribe(
+      {
+        next: (user) => {
+          this.userProfile = user;
+          this.isHost = this.currentUserService.checkUserRole(UserRole.HOST);
+          if (this.isHost) {
+            this.ratingService.getAvgHostRating(user.id).subscribe({
+              next: (response) =>{
+                this.hostRating = response;
+              },
+              error: (err) => {
+                this.alertService.alertWarning(err.message)
+              }
+            });
+          }
+        },
+        error: (err) => {
+          this.alertService.alertDanger(err.message);
+        }
+      });
 
   }
 

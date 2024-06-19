@@ -1,13 +1,16 @@
 <!-- Product section-->
 <section class="py-5">
-  <div class="container px-4 px-lg-5 my-5">
+  <div class="container rounded p-4 p-lg-5 my-5 my-bg-white" >
     <div class="row gx-4 gx-lg-5 align-items-center">
       <div class="col-md-5">
         <app-carousel [photos]="lodge.photos"></app-carousel>
         <div class="text-center fs-5">
           <span>Lodge rating: {{ lodgeRating ? lodgeRating + '/5' : 'Not ratings yet'}}</span> <br>
           <span>Host: {{ getHostFullName() }}</span> <br>
-          <span>Rating: {{ hostRating ? hostRating + '/5' : 'Not ratings yet'}}</span>
+          <span>Host rating: {{ hostRating ? hostRating + '/5' : 'Not ratings yet'}}</span> <br>
+          <div *ngIf="isGuest">
+            <app-rating-new-update></app-rating-new-update>
+          </div>
         </div>
       </div>
       <div class="col-md-7">

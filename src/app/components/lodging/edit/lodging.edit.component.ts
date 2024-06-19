@@ -49,7 +49,7 @@ export class LodgingEditComponent {
     } else {
       this.lodgingService.get(id).subscribe({
         error: (error: any) => {
-          console.log(error.message);
+          this.alertService.alertDanger(error.message);
           this.router.navigateByUrl('/page404');
         },
         next: (response) => {
@@ -70,7 +70,6 @@ export class LodgingEditComponent {
           });
         },
         error: (err) => {
-          console.log(err);
           this.alertService.alertDanger(err.message);
         }
       });
@@ -109,7 +108,6 @@ export class LodgingEditComponent {
         }
       },
       error: (err: any) => {
-        console.log(err);
         this.alertService.alertDanger(err.message);
       }
     }

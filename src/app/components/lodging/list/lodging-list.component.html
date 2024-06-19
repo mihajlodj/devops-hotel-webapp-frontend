@@ -13,7 +13,7 @@
         <div class="container px-4 px-lg-5 mt-5">
             <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                 <div class="col mb-5" *ngFor="let lodge of this.lodges">
-                    <div class="card h-100">
+                    <div class="card h-100 ">
                         <!-- Product image--><img class="card-img-top" [src]="this.photoUrlPrefix + lodge.photos[0].url"
                             alt="...">
                         <!-- Product details-->
@@ -23,6 +23,8 @@
                                 <h5 class="fw-bolder">{{ lodge.name }}</h5>
                                 <!-- Location -->
                                 <div class="d-flex justify-content-center mb-2">{{lodge.location}}</div>
+                                <div class="d-flex justify-content-center mb-2">{{ lodgeRatings[lodge.id] ? 'Rating: ' + lodgeRatings[lodge.id] + '/5' : 'No lodge ratings yet' }}</div>
+                                <div class="d-flex justify-content-center mb-2">{{ hostRatings[lodge.ownerId] ? 'Host rating: ' + hostRatings[lodge.ownerId] + '/5' : 'Host has no ratings yet' }}</div>
                             </div>
                         </div>
                         <!-- Product actions-->
@@ -41,12 +43,12 @@
     <header class="bg-primary py-1">
         <div class="container px-4 px-lg-5 my-1">
             <div class="text-center text-white">
-                <h1 class="display-4 fw-bolder">No lodges found :&lpar;</h1>
+                <h1 class="display-4 fw-bolder">No lodges found D:</h1>
                 <p class="lead fw-normal text-white-50 mb-0">Please try again later</p>
             </div>
         </div>
     </header>
     <section>
-        
+        <img src="../../../../assets/404.gif" style="z-index: -1;width:100%;height:80%;position:absolute;">
     </section>
 </ng-template>

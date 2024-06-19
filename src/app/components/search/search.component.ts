@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { LodgeSearchRequest } from 'src/app/model/lodge/lodge-search-request';
 import { Router } from '@angular/router';
 import { NgbCalendar, NgbDate, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
@@ -8,13 +8,13 @@ import { NgbCalendar, NgbDate, NgbDateParserFormatter } from '@ng-bootstrap/ng-b
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.css']
 })
-export class SearchComponent {
+export class SearchComponent implements OnInit {
 
   calendar = inject(NgbCalendar);
 	formatter = inject(NgbDateParserFormatter);
 
   guestNumber: number | undefined;
-  location: string = '';
+  location: string | null = null;
 
   hoveredDate: NgbDate | null = null;
 	dateFrom: NgbDate | null = this.calendar.getToday();
@@ -58,16 +58,22 @@ export class SearchComponent {
   constructor(private router: Router) {
 
   }
+	ngOnInit(): void {
+		this.dateFrom = null;
+		this.dateTo = null;
+	}
 
   search() {
     let searchRequest: LodgeSearchRequest = new LodgeSearchRequest(
       this.dateFrom ? this.dateToString(this.dateFrom) : null, 
       this.dateTo ? this.dateToString(this.dateTo) : null, 
       this.guestNumber, 
-      this.location);
+      this.location ? this.location : null);
     this.router.navigate([`/search`], {
       queryParams: searchRequest
-    });
+    }).then(() => {
+		window.location.reload();
+	});
   }
 
   dateToString(date: NgbDate) {

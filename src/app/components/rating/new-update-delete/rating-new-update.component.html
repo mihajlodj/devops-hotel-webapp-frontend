@@ -1,0 +1,34 @@
+<div class="btn-group mt-2" style="width:80%">
+    <span class="input-group-text" id="basic-addon1"
+        style="border-top-right-radius:0px;border-bottom-right-radius:0px;">Rate host</span>
+    <button type="button" class="btn btn-outline-warning dropdown-toggle gold" data-bs-toggle="dropdown"
+        aria-expanded="false" style="border-radius:0px;">
+        {{ myHostRating.rating === 0 ? '-' : myHostRating.rating }}
+    </button>
+    <ul class="dropdown-menu">
+        <li><a class="dropdown-item" (click)="myHostRating.rating=0">-</a></li>
+        <li><a class="dropdown-item" (click)="myHostRating.rating=1">1</a></li>
+        <li><a class="dropdown-item" (click)="myHostRating.rating=2">2</a></li>
+        <li><a class="dropdown-item" (click)="myHostRating.rating=3">3</a></li>
+        <li><a class="dropdown-item" (click)="myHostRating.rating=4">4</a></li>
+        <li><a class="dropdown-item" (click)="myHostRating.rating=5">5</a></li>
+    </ul>
+    <button type="button" class="btn btn-outline-primary" (click)="saveNewHostRating()">Save</button>
+</div> <br>
+<div class="btn-group mt-2" style="width:80%">
+    <span class="input-group-text" id="basic-addon2"
+        style="border-top-right-radius:0px;border-bottom-right-radius:0px;">Rate lodge</span>
+    <button type="button" class="btn btn-outline-warning dropdown-toggle gold" data-bs-toggle="dropdown"
+        aria-expanded="false" style="border-radius:0px;">
+        {{ myLodgeRating.rating === 0 ? '-' : myLodgeRating.rating }}
+    </button>
+    <ul class="dropdown-menu">
+        <li><a class="dropdown-item" (click)="myLodgeRating.rating=0">-</a></li>
+        <li><a class="dropdown-item" (click)="myLodgeRating.rating=1">1</a></li>
+        <li><a class="dropdown-item" (click)="myLodgeRating.rating=2">2</a></li>
+        <li><a class="dropdown-item" (click)="myLodgeRating.rating=3">3</a></li>
+        <li><a class="dropdown-item" (click)="myLodgeRating.rating=4">4</a></li>
+        <li><a class="dropdown-item" (click)="myLodgeRating.rating=5">5</a></li>
+    </ul>
+    <button type="button" class="btn btn-outline-primary" (click)="saveNewLodgeRating()">Save</button>
+</div>
